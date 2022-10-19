@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -89,6 +90,7 @@ public class WebSecurityConfig {
         System.out.println("WebConfig / configure");
         // We don't need CSRF for this example
         httpSecurity.csrf().disable()
+                .addFilterBefore(jwtRequestFilter, AnonymousAuthenticationFilter.class)
                 // dont authenticate this particular request
                 .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
                 // all other requests need to be authenticated

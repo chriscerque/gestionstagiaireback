@@ -27,23 +27,18 @@ import java.time.LocalDate;
 @Component
 public class MyRunner2 implements CommandLineRunner {
 
-    @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private StagiaireRepo stagiaireRepo;
-
     //    @Autowired
 //    public StageRepo stageRepo;
     @Autowired
     public IStageFacade iStageFacade;
-
     @Autowired
     public FormateurRepo formateurRepo;
-
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private StagiaireRepo stagiaireRepo;
     @Autowired
     private MyUserDetailService userDetailsService;
-
 
 
     @Value("${toto.var}")
@@ -57,13 +52,12 @@ public class MyRunner2 implements CommandLineRunner {
         System.out.println(this.text);
 
 
-
         try {
             System.out.println(">>>>>>>>>>>>>>>>>>>runner 0");
-            userDetailsService.save(new UserDTO("ADMIN","ADMIN"));
+            userDetailsService.save(new UserDTO("ADMIN", "ADMIN", true, true, true, true));
             userDetailsService.save(UserDTO.builder().username("ADMIN2").password("ADMIN2").enabled(true).build());
-            userDetailsService.save(new UserDTO("ADMIN3","ADMIN3"));
-            userDetailsService.save(new UserDTO("ADMIN4","ADMIN4"));
+            userDetailsService.save(new UserDTO("ADMIN3", "ADMIN3", true, true, true, true));
+            userDetailsService.save(new UserDTO("ADMIN4", "ADMIN4", false, true, false, true));
 
             StagiaireDto stagiaireDto = new StagiaireDto();
             stagiaireDto.nid = "0123456789";
@@ -121,9 +115,8 @@ public class MyRunner2 implements CommandLineRunner {
             iStageFacade.saveStage(stage2);
 
 
-
 //        stageRepo.saveAndFlush(stage);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
         }

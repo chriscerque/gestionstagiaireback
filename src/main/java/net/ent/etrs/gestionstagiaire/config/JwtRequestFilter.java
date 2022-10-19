@@ -2,6 +2,9 @@ package net.ent.etrs.gestionstagiaire.config;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import net.ent.etrs.gestionstagiaire.model.facades.api.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+
         System.out.println("JwtRequestFilter / doFilterInternal");
         System.out.println("request.getRequestURI() : " + request.getRequestURI());
         System.out.println("request.getHeaderNames() : " + request.getHeaderNames());
@@ -57,6 +61,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
+                System.out.println("JWT Token has expired");
+            } catch (UnsupportedJwtException e) {
+                System.out.println("JWT Token has expired");
+            } catch (MalformedJwtException e) {
+                System.out.println("JWT Token has expired");
+            } catch (SignatureException e) {
                 System.out.println("JWT Token has expired");
             }
         } else {
@@ -87,6 +97,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         System.out.println("JwtRequestFilter / doFilterInternal fin");
         chain.doFilter(request, response);
+
+
     }
 
 }

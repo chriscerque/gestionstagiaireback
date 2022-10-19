@@ -1,5 +1,6 @@
 package net.ent.etrs.gestionstagiaire.model.facades.api;
 
+import io.jsonwebtoken.SignatureException;
 import net.ent.etrs.gestionstagiaire.config.JwtTokenUtil;
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.model.facades.api.dto.UserDTO;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 //@CrossOrigin
 public class JwtAuthenticationController {
 
-    //    @Autowired
+
     private AuthenticationManager authenticationManager;
 
     //    @Autowired
@@ -65,15 +66,17 @@ public class JwtAuthenticationController {
 //			responseHeaders.setLocation(location);
             responseHeaders.set("Authorization", token);
             return new ResponseEntity<MyUser>(myUser, responseHeaders, HttpStatus.OK);
-        } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException e) {
+        } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException |
+                 SignatureException e) {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>ERR");
             e.printStackTrace();
 //			throw new Exception(e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e1) {
-            e1.printStackTrace();
+//            e1.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return null;
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping(value = "/register")
