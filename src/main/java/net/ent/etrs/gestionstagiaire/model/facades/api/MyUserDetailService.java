@@ -1,9 +1,9 @@
 package net.ent.etrs.gestionstagiaire.model.facades.api;
 
+
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.model.facades.api.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,11 +14,18 @@ import javax.persistence.NonUniqueResultException;
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
-    @Autowired
+    //    @Autowired
     private UserRepo userRepo;
 
-    @Autowired
+    //    @Autowired
     private PasswordEncoder bcryptEncoder;
+
+    public MyUserDetailService(UserRepo userRepo, PasswordEncoder bcryptEncoder) {
+        //TODO SOUT
+        System.out.println("MyUserDetailService constructor");
+        this.userRepo = userRepo;
+        this.bcryptEncoder = bcryptEncoder;
+    }
 
     @Override
     public MyUser loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -60,7 +67,6 @@ public class MyUserDetailService implements UserDetailsService {
     }
 
     public MyUser save(UserDTO userDTO) {
-
 
 
         MyUser newUser = new MyUser();
