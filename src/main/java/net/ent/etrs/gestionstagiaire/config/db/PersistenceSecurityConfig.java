@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.secu;
+package net.ent.etrs.gestionstagiaire.config.db;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = {"net.ent.etrs.gestionstagiaire.model.repo"})
 @EntityScan(basePackages = {"net.ent.etrs.gestionstagiaire.model", "net.ent.etrs.gestionstagiaire.model.entities.references"})
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
-public class PersistenceConfig {
+public class PersistenceSecurityConfig {
     @Bean
     AuditorAware<String> auditorProvider() {
         System.out.println(">>>>>>>>PersistenceConfig/auditorProvider");

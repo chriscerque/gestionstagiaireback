@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.model.facades.api;
+package net.ent.etrs.gestionstagiaire.controllers;
 
 
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/stages")
 public class StageController {
 
     @Autowired
     private StageRepo stageRepo;
 
-    @GetMapping(produces = "application/json;charset=utf-8", path = "/stages")
+    @GetMapping(produces = "application/json;charset=utf-8", path = "/")
     public List<Stage> getStages() {
         System.out.println("getStages");
         stageRepo.findAll().forEach(s -> System.out.printf("%s : %s | %s%n", s.getCodeStage(), s.getDateDebut(), s.getDateFin()));

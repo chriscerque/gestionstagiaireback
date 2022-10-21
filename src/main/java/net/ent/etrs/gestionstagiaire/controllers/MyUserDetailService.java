@@ -1,8 +1,8 @@
-package net.ent.etrs.gestionstagiaire.model.facades.api;
+package net.ent.etrs.gestionstagiaire.controllers;
 
 
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
-import net.ent.etrs.gestionstagiaire.model.facades.api.dto.UserDTO;
+import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

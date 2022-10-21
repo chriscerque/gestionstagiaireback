@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.secu;
+package net.ent.etrs.gestionstagiaire.config.db;
 
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import org.springframework.context.annotation.Configuration;

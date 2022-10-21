@@ -1,6 +1,6 @@
 package net.ent.etrs.gestionstagiaire.config;
 
-import net.ent.etrs.gestionstagiaire.model.facades.api.MyUserDetailService;
+import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -92,7 +92,7 @@ public class WebSecurityConfig {
         httpSecurity.csrf().disable()
                 .addFilterBefore(jwtRequestFilter, AnonymousAuthenticationFilter.class)
                 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+                .authorizeRequests().antMatchers("/api/auth/authenticate", "/api/auth/register").permitAll().
                 // all other requests need to be authenticated
                         anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to

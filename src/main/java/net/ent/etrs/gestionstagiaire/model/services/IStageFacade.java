@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.model.facades;
+package net.ent.etrs.gestionstagiaire.model.services;
 
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 

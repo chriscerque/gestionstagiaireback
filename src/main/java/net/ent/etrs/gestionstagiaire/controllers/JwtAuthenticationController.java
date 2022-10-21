@@ -1,9 +1,9 @@
-package net.ent.etrs.gestionstagiaire.model.facades.api;
+package net.ent.etrs.gestionstagiaire.controllers;
 
 import io.jsonwebtoken.SignatureException;
 import net.ent.etrs.gestionstagiaire.config.JwtTokenUtil;
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
-import net.ent.etrs.gestionstagiaire.model.facades.api.dto.UserDTO;
+import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/auth")
 //@CrossOrigin
 public class JwtAuthenticationController {
 

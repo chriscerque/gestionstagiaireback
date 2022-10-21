@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.model.facades;
+package net.ent.etrs.gestionstagiaire.model.services;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
