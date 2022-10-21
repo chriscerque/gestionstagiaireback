@@ -8,9 +8,13 @@ import java.util.Optional;
 
 public interface IStageFacade {
 
-    Stage saveStage(Stage stage);
-    void deleteStage(Stage stage);
-    Optional<Stage> readStage(Long id);
-    List<Stage> readAllStage();
-    Stage readStage(String codeStage);
+    Stage save(Stage stage);
+
+    void delete(Stage stage);
+
+    Optional<Stage> findByCodeStage(Long id);
+
+    List<Stage> findAll();
+
+    Stage findByCodeStage(String codeStage);
 }

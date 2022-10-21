@@ -6,5 +6,5 @@ import java.util.List;
 
 
 public interface IGradeFacade {
-    List<Grade> readAllGrades();
+    List<Grade> findAll();
 }

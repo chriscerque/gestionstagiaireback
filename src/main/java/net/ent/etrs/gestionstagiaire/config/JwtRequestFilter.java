@@ -63,11 +63,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
             } catch (UnsupportedJwtException e) {
-                System.out.println("JWT Token has expired");
+                System.out.println("JWT Token Unsupported");
             } catch (MalformedJwtException e) {
-                System.out.println("JWT Token has expired");
+                System.out.println("JWT Token Malformed");
             } catch (SignatureException e) {
-                System.out.println("JWT Token has expired");
+                System.out.println("JWT Token Bad Signature");
             }
         } else {
             logger.warn("JWT Token does not begin with Bearer String");

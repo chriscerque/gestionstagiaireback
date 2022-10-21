@@ -1,38 +1,45 @@
 package net.ent.etrs.gestionstagiaire.model.services;
 
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
+import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
+import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
+import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 
 import java.util.List;
 import java.util.Optional;
 
 //@Component
-public class StageFacade extends AbstractFacade implements IStageFacade{
+public class StageFacade extends AbstractFacade implements IStageFacade {
+    protected StageFacade(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo) {
+        super(stageRepo, stagiaireRepo, formateurRepo);
+    }
+
     @Override
-    public Stage saveStage(Stage stage) {
+    public Stage save(Stage stage) {
         Stage st = this.stageRepo.findByCodeStage(stage.getCodeStage());
-        if(st == null){
+        if (st == null) {
             return this.stageRepo.save(stage);
         }
         return st;
     }
 
     @Override
-    public void deleteStage(Stage stage) {
+    public void delete(Stage stage) {
         this.stageRepo.delete(stage);
     }
 
     @Override
-    public Optional<Stage> readStage(Long id) {
+    public Optional<Stage> findByCodeStage(Long id) {
         return this.stageRepo.findById(id);
     }
 
     @Override
-    public List<Stage> readAllStage() {
+    public List<Stage> findAll() {
         return this.stageRepo.findAll();
     }
 
     @Override
-    public Stage readStage(String codeStage) {
+    public Stage findByCodeStage(String codeStage) {
         return this.stageRepo.findByCodeStage(codeStage);
     }
 }

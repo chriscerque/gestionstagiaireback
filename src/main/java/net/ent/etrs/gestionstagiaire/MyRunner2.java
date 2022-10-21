@@ -1,20 +1,20 @@
 package net.ent.etrs.gestionstagiaire;
 
 
+import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
+import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
+import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
+import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Grade;
-import net.ent.etrs.gestionstagiaire.model.services.IStageFacade;
-import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
-import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
-import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
-import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
+import net.ent.etrs.gestionstagiaire.model.services.IStageFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -94,9 +94,9 @@ public class MyRunner2 implements CommandLineRunner {
             formateurRepo.save(formateur);
             stage.setCdsf(formateur);
 //            stageRepo.save(stage);
-            System.out.println("recherche stage CG91" + iStageFacade.readStage("CG91"));
+            System.out.println("recherche stage CG91" + iStageFacade.findByCodeStage("CG91"));
 
-            iStageFacade.saveStage(stage);
+            iStageFacade.save(stage);
 
             Stage stage2 = new Stage();
             stage2.setCodeStage("GJ50");
@@ -110,9 +110,9 @@ public class MyRunner2 implements CommandLineRunner {
             formateurRepo.save(formateur2);
             stage2.setCdsf(formateur2);
 //            stageRepo.save(stage);
-            System.out.println("recherche stage GJ50" + iStageFacade.readStage("GJ50"));
+            System.out.println("recherche stage GJ50" + iStageFacade.findByCodeStage("GJ50"));
 
-            iStageFacade.saveStage(stage2);
+            iStageFacade.save(stage2);
 
 
 //        stageRepo.saveAndFlush(stage);

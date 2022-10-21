@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class GradeFacade implements IGradeFacade{
+public class GradeFacade implements IGradeFacade {
     @Override
-    public List<Grade> readAllGrades() {
+    public List<Grade> findAll() {
         return Arrays.asList(Grade.values());
     }
 }
