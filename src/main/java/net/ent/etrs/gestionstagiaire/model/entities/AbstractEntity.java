@@ -1,10 +1,7 @@
 package net.ent.etrs.gestionstagiaire.model.entities;
 
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SuppressWarnings("serial")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,6 +22,7 @@ import java.time.LocalDate;
 public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements Serializable {
     // annotation lombok
     @Getter
+    @Setter
     // annotations JPA
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +32,7 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
 //    @Column(name = "UUID")
 //    protected String uuid = UUID.randomUUID().toString();
 
-    @Column(name = "CREATED_BY_USER", nullable = false, columnDefinition = "VARCHAR(255) default 'ANONYMOUS'")
+    @Column(name = "CREATED_BY_USER", nullable = true, columnDefinition = "VARCHAR(255) default 'ANONYMOUS'")
     @CreatedBy
     private String createdByUser;
 
@@ -44,11 +42,11 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
 
     @Column(name = "CREATED_DATE", nullable = false)
     @CreatedDate
-    private LocalDate createdDate = LocalDate.now();
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "MODIFIED_DATE", nullable = false)
     @LastModifiedDate
-    private LocalDate modifiedDate = LocalDate.now();
+    private LocalDateTime modifiedDate = LocalDateTime.now();
 
 //    @PrePersist
 //    public void prePersist() {

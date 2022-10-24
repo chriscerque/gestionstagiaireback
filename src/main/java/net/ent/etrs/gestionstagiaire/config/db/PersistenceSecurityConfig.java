@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = {"net.ent.etrs.gestionstagiaire.model.repo"})
-@EntityScan(basePackages = {"net.ent.etrs.gestionstagiaire.model", "net.ent.etrs.gestionstagiaire.model.entities.references"})
+@EntityScan(basePackages = {"net.ent.etrs.gestionstagiaire.model"})
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class PersistenceSecurityConfig {
     @Bean

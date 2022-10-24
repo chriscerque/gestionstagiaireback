@@ -43,7 +43,7 @@ public class MyUserDetailService implements UserDetailsService {
 //                    new ArrayList<>());
             return myUser;
         } catch (UsernameNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             throw new UsernameNotFoundException(e.getMessage());
         } catch (NonUniqueResultException e) {
             e.printStackTrace();

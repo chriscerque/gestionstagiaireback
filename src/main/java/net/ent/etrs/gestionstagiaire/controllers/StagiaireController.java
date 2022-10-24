@@ -6,14 +6,11 @@ import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.services.IStagiaireFacade;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +43,7 @@ public class StagiaireController {
     }
 
     @PostMapping(path = "/", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")
-    public ResponseEntity<StagiaireDto> create(@RequestBody @Valid StagiaireDto stagiaireDto) throws ConstraintViolationException, DataIntegrityViolationException, Exception {
+    public ResponseEntity<StagiaireDto> create(@RequestBody @Valid StagiaireDto stagiaireDto) {
         System.out.println("StagiaireController / create");
         System.out.println("stagiaire : " + stagiaireDto);
 
@@ -72,17 +69,21 @@ public class StagiaireController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")
-    public ResponseEntity<StagiaireDto> upadte(@PathParam("id") Long id, @RequestBody StagiaireDto stagiaireDto) {
+    public ResponseEntity<StagiaireDto> upadte(@PathVariable("id") Long id, @RequestBody @Valid StagiaireDto stagiaireDto) {
         System.out.println("StagiaireController / setStagiaire");
         System.out.println("stagiaire : " + stagiaireDto);
 
+        System.out.println("StagiaireController / upadte id : " + id);
 
         try {
             if (!this.stagiaireFacade.exist(id)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
+            System.out.println("StagiaireController / upadte 111");
             Stagiaire stagiaire = DtoUtils.stagiaireFromDto(stagiaireDto);
+            System.out.println("StagiaireController / upadte 222");
             Stagiaire s = this.stagiaireFacade.save(stagiaire).orElseThrow(Exception::new);
+            System.out.println("StagiaireController / upadte 333");
             return ResponseEntity.ok(DtoUtils.stagiaireToDto(s));
 
 //            Optional<Stagiaire> oStagiaire = stagiaireFacade.save(DtoUtils.stagiaireFromDto(stagiaireDto));
@@ -92,12 +93,13 @@ public class StagiaireController {
 //            }
 //            return ResponseEntity.ok(DtoUtils.stagiaireToDto(oStagiaire.get()));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping(produces = "application/json; charset=UTF-8", path = "/{id}")
-    public ResponseEntity<StagiaireDto> findById(@PathParam("id") Long id) {
+    public ResponseEntity<StagiaireDto> findById(@PathVariable("id") Long id) {
         try {
             Optional<Stagiaire> oStagiaire = this.stagiaireFacade.findById(id);
             if (oStagiaire.isEmpty()) {

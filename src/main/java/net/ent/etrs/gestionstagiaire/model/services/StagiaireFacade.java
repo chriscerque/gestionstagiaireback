@@ -25,6 +25,7 @@ public class StagiaireFacade extends AbstractFacade implements IStagiaireFacade 
 
         if (stagiaire.getId() != null) {
             System.out.println("StagiaireFacade.save id not null ");
+            System.out.println("stagiaire : " + stagiaire);
             return Optional.of(this.stagiaireRepo.save(stagiaire));
         } else {
             System.out.println("StagiaireFacade.save id null ");

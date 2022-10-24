@@ -16,6 +16,8 @@ import java.util.Set;
 @ToString
 public class StagiaireDto {
 
+    public Long id;
+
     public String nom;
 
     public String prenom;

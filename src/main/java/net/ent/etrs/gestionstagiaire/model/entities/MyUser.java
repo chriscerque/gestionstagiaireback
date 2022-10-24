@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @ToString
-public class MyUser extends AbstractEntity implements Serializable, UserDetails {
+public class MyUser extends AbstractEntity implements UserDetails {
 
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)

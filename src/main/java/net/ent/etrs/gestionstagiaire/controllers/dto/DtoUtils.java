@@ -30,6 +30,7 @@ public final class DtoUtils {
 
     public static Stagiaire stagiaireFromDto(StagiaireDto stagiaireDto) {
         Stagiaire stagiaire = new Stagiaire();
+        stagiaire.setId(stagiaireDto.getId());
         stagiaire.setNom(stagiaireDto.nom);
         stagiaire.setPrenom(stagiaireDto.prenom);
         stagiaire.setGrade(stagiaireDto.grade);

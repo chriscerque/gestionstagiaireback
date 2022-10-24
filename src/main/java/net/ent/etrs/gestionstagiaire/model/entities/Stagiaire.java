@@ -1,6 +1,5 @@
 package net.ent.etrs.gestionstagiaire.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +22,7 @@ import java.util.Set;
 @Entity
 @Table(name = "STAGIAIRE", uniqueConstraints = @UniqueConstraint(name = "STAGIAIRE_NID_UK", columnNames = "NID"))
 @EqualsAndHashCode(callSuper = false, of = "nid")
-@ToString(exclude = "noteList")
+@ToString(callSuper = true, exclude = "noteList")
 public class Stagiaire extends AbstractEntity {
 
     @Getter
@@ -51,7 +50,7 @@ public class Stagiaire extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "APPARTENANCE", nullable = false)
 //    @NotNull(message = Cmodel.BV_STAGIAIRE_APPARTENANCE_NOT_NULL)
-    @JsonIgnore
+//    @JsonIgnore
     private Appartenance appartenance;
 
     @Getter

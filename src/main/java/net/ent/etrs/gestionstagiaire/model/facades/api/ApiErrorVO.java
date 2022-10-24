@@ -1,17 +1,18 @@
 package net.ent.etrs.gestionstagiaire.model.facades.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 @JsonInclude(content = JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ApiErrorVO {
     private String errorCode;
     private String message;
 
-    public ApiErrorVO(String errorCode, String message) {
-        super();
-        this.errorCode = errorCode;
-        this.message = message;
-    }
+    
 }
