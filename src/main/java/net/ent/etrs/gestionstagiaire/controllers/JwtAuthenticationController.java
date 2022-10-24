@@ -2,8 +2,8 @@ package net.ent.etrs.gestionstagiaire.controllers;
 
 import io.jsonwebtoken.SignatureException;
 import net.ent.etrs.gestionstagiaire.config.JwtTokenUtil;
-import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
+import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,16 +88,16 @@ public class JwtAuthenticationController {
     }
 
 
-    private void authenticate(String username, String password) throws BadCredentialsException, DisabledException, LockedException {
-//        try {
-        System.out.println("JwtAuthenticationController / authenticate");
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-//        } catch (DisabledException e) {
-//            e.printStackTrace();
-//            throw new Exception("USER_DISABLED", e);
-//        } catch (BadCredentialsException e) {
-//            e.printStackTrace();
-//            throw new Exception("INVALID_CREDENTIALS", e);
-//        }
+    private void authenticate(String username, String password) throws Exception {
+        try {
+            System.out.println("JwtAuthenticationController / authenticate");
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            e.printStackTrace();
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            e.printStackTrace();
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
     }
 }

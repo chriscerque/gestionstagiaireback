@@ -1,8 +1,8 @@
 package net.ent.etrs.gestionstagiaire.controllers;
 
 
-import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
+import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,6 +32,7 @@ public class MyUserDetailService implements UserDetailsService {
         System.out.println(">>>>>>>>>>MyUserDetailService/loadUserByUsername");
 
         try {
+            System.out.println("username: " + username);
 //            MyUser user = userRepo.findUserByUsername(username).orElseThrow(() ->new NonUniqueResultException("tutututututu"));
             MyUser myUser = userRepo.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("tototototototototototo"));
             System.out.println("user : " + myUser);
@@ -72,6 +73,10 @@ public class MyUserDetailService implements UserDetailsService {
         MyUser newUser = new MyUser();
         newUser.setUsername(userDTO.getUsername());
         newUser.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
+        newUser.setAccountNonExpired(userDTO.isAccountNonExpired());
+        newUser.setEnabled(userDTO.isEnabled());
+        newUser.setCredentialsNonExpired(userDTO.isCredentialsNonExpired());
+        newUser.setAccountNonLocked(userDTO.isAccountNonLocked());
 
         try {
             System.out.println(">>>>>>>>>>MyUserDetailService/save try");

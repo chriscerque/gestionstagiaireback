@@ -6,10 +6,13 @@ import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.services.IStagiaireFacade;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
@@ -43,21 +46,29 @@ public class StagiaireController {
     }
 
     @PostMapping(path = "/", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")
-    public ResponseEntity<StagiaireDto> create(@RequestBody StagiaireDto stagiaireDto) {
-        System.out.println("StagiaireController / setStagiaire");
+    public ResponseEntity<StagiaireDto> create(@RequestBody @Valid StagiaireDto stagiaireDto) throws ConstraintViolationException, DataIntegrityViolationException, Exception {
+        System.out.println("StagiaireController / create");
         System.out.println("stagiaire : " + stagiaireDto);
 
 
-        try {
-            Optional<Stagiaire> oStagiaire = stagiaireFacade.save(DtoUtils.stagiaireFromDto(stagiaireDto));
-            if (oStagiaire.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        try {
+        Optional<Stagiaire> oStagiaire = stagiaireFacade.save(DtoUtils.stagiaireFromDto(stagiaireDto));
+        if (oStagiaire.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-            }
-            return ResponseEntity.ok(DtoUtils.stagiaireToDto(oStagiaire.get()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+        return ResponseEntity.ok(DtoUtils.stagiaireToDto(oStagiaire.get()));
+//        } catch (ConstraintViolationException e) {
+//            System.out.println("StagiaireController create failed ConstraintViolationException : " + e.getMessage());
+//            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+//        } catch (DataIntegrityViolationException e) {
+//            System.out.println("StagiaireController create failed DataIntegrityViolationException : " + e.getMessage());
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
     }
 
     @PutMapping(path = "/{id}", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")

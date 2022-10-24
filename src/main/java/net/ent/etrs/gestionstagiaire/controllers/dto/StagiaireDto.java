@@ -1,7 +1,7 @@
 package net.ent.etrs.gestionstagiaire.controllers.dto;
 
 
-import lombok.ToString;
+import lombok.*;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Grade;
 
@@ -9,6 +9,10 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class StagiaireDto {
 
@@ -36,11 +40,11 @@ public class StagiaireDto {
 
     public Set<NoteDto> noteList = new HashSet<>();
 
-    public void ajouterNote(NoteDto note){
+    public void ajouterNote(NoteDto note) {
         this.noteList.add(note);
     }
 
-    public void supprimerNote(NoteDto note){
+    public void supprimerNote(NoteDto note) {
         this.noteList.remove(note);
     }
 }

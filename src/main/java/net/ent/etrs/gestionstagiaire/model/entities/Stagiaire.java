@@ -1,6 +1,7 @@
 package net.ent.etrs.gestionstagiaire.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,7 +21,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "STAGIAIRE")
+@Table(name = "STAGIAIRE", uniqueConstraints = @UniqueConstraint(name = "STAGIAIRE_NID_UK", columnNames = "NID"))
+@EqualsAndHashCode(callSuper = false, of = "nid")
 @ToString(exclude = "noteList")
 public class Stagiaire extends AbstractEntity {
 

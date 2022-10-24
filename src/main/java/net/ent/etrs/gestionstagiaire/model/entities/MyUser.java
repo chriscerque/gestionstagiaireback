@@ -2,9 +2,7 @@ package net.ent.etrs.gestionstagiaire.model.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +17,10 @@ import java.util.List;
 @Entity
 @Table(name = "MY_USER")
 @NoArgsConstructor
+@Data
+@Builder
+@AllArgsConstructor
+@ToString
 public class MyUser extends AbstractEntity implements Serializable, UserDetails {
 
 //    @Id

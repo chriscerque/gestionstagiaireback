@@ -76,6 +76,7 @@ public class MyRunner2 implements CommandLineRunner {
             stagiaire.setPrenom("totop9");
             stagiaire.setGrade(Grade.ADJ);
             stagiaire.setAppartenance(Appartenance.TERRE);
+            stagiaire.setNid("5643217891");
             System.out.println(">>>>>>>>>>>>>>>>>>>runner 2");
 //            titi();
             System.out.println(">>>>>>>>>>>>>>>>>>>runner 3");
