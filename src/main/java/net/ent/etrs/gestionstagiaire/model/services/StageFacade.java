@@ -4,11 +4,12 @@ import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-//@Component
+@Service
 public class StageFacade extends AbstractFacade implements IStageFacade {
     protected StageFacade(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo) {
         super(stageRepo, stagiaireRepo, formateurRepo);
