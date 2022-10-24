@@ -75,16 +75,17 @@ public class StagiaireController {
 
         System.out.println("StagiaireController / upadte id : " + id);
 
-        try {
-            if (!this.stagiaireFacade.exist(id)) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            System.out.println("StagiaireController / upadte 111");
-            Stagiaire stagiaire = DtoUtils.stagiaireFromDto(stagiaireDto);
-            System.out.println("StagiaireController / upadte 222");
-            Stagiaire s = this.stagiaireFacade.save(stagiaire).orElseThrow(Exception::new);
-            System.out.println("StagiaireController / upadte 333");
-            return ResponseEntity.ok(DtoUtils.stagiaireToDto(s));
+//        try {
+        if (!this.stagiaireFacade.exist(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        System.out.println("StagiaireController / upadte 111");
+        Stagiaire stagiaire = DtoUtils.stagiaireFromDto(stagiaireDto);
+        System.out.println("StagiaireController / upadte 222");
+//            Stagiaire s = this.stagiaireFacade.save(stagiaire).orElseThrow(Exception::new);
+        Stagiaire s = this.stagiaireFacade.save(stagiaire).get();
+        System.out.println("StagiaireController / upadte 333");
+        return ResponseEntity.ok(DtoUtils.stagiaireToDto(s));
 
 //            Optional<Stagiaire> oStagiaire = stagiaireFacade.save(DtoUtils.stagiaireFromDto(stagiaireDto));
 //            if (oStagiaire.isEmpty()) {
@@ -92,10 +93,10 @@ public class StagiaireController {
 //
 //            }
 //            return ResponseEntity.ok(DtoUtils.stagiaireToDto(oStagiaire.get()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+//        } catch (Exception e) {
+////            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
     }
 
     @GetMapping(produces = "application/json; charset=UTF-8", path = "/{id}")
