@@ -4,7 +4,6 @@ package net.ent.etrs.gestionstagiaire.controllers;
 import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
 import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
-import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.services.IStagiaireFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,11 @@ import java.util.Optional;
 @RequestMapping(value = "/stagiaires")
 
 public class StagiaireController {
-
-    private StagiaireRepo stagiaireRepo;
-
+    
     private IStagiaireFacade stagiaireFacade;
 
-    public StagiaireController(StagiaireRepo stagiaireRepo, IStagiaireFacade stagiaireFacade) {
-        this.stagiaireRepo = stagiaireRepo;
+    public StagiaireController(IStagiaireFacade stagiaireFacade) {
+
         this.stagiaireFacade = stagiaireFacade;
     }
 

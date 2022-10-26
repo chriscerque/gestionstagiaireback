@@ -23,7 +23,7 @@ public final class DtoUtils {
         stagiaireDto.numChambre = stagiaire.getNumChambre();
         stagiaireDto.numBadgeMess = stagiaire.getNumBadgeMess();
         stagiaireDto.numBadgeAcces = stagiaire.getNumBadgeAcces();
-//        stagiaire.getNoteList().forEach(n->stagiaireDto.ajouterNote(DtoUtils.noteToDto(n)));
+        stagiaire.getNoteList().forEach(n -> stagiaireDto.ajouterNote(DtoUtils.noteToDto(n)));
 
         return stagiaireDto;
     }
@@ -42,7 +42,7 @@ public final class DtoUtils {
         stagiaire.setNumChambre(stagiaireDto.numChambre);
         stagiaire.setNumBadgeMess(stagiaireDto.numBadgeMess);
         stagiaire.setNumBadgeAcces(stagiaireDto.numBadgeAcces);
-//        stagiaireDto.noteList.forEach(n -> stagiaire.ajouterNote(DtoUtils.noteFromDto(n)));
+        stagiaireDto.noteList.forEach(n -> stagiaire.ajouterNote(DtoUtils.noteFromDto(n)));
         System.out.println("stagiaireFromDto : " + stagiaireDto);
         return stagiaire;
     }

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>net.ent.etrs.gestionstagiaire.model.entities.Evaluation</OriginalElement>
+  <nodes>
+    <node x="572.0" y="291.0">net.ent.etrs.gestionstagiaire.model.entities.Stagiaire</node>
+    <node x="119.0" y="-211.0">net.ent.etrs.gestionstagiaire.model.entities.Matiere</node>
+    <node x="-791.0" y="1329.5">net.ent.etrs.gestionstagiaire.model.entities.references.Cmodel</node>
+    <node x="-278.0" y="1560.0">net.ent.etrs.gestionstagiaire.model.entities.Stage</node>
+    <node x="-37.0" y="1003.0">net.ent.etrs.gestionstagiaire.model.entities.RoleOld</node>
+    <node x="-262.5" y="-50.0">net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity</node>
+    <node x="592.5" y="-17.0">net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance</node>
+    <node x="-767.5" y="38.0">net.ent.etrs.gestionstagiaire.model.entities.references.TypeIF</node>
+    <node x="-247.5" y="-464.0">net.ent.etrs.gestionstagiaire.model.entities.UniteValeur</node>
+    <node x="91.0" y="610.0">net.ent.etrs.gestionstagiaire.model.entities.Note</node>
+    <node x="73.5" y="-17.0">net.ent.etrs.gestionstagiaire.model.entities.Evaluation</node>
+    <node x="-825.5" y="383.0">net.ent.etrs.gestionstagiaire.model.entities.MyUser</node>
+    <node x="111.5" y="1232.0">net.ent.etrs.gestionstagiaire.model.entities.Formateur</node>
+    <node x="354.0" y="1265.0">net.ent.etrs.gestionstagiaire.model.entities.references.Grade</node>
+    <node x="-534.5" y="-83.0">net.ent.etrs.gestionstagiaire.model.entities.IngenierieFormation</node>
+    <node x="-785.5" y="1117.0">net.ent.etrs.gestionstagiaire.model.entities.references.Role</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Note" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="-105.0" y="0.0" />
+      <point x="-109.0" y="770.0" />
+      <point x="15.0" y="160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Matiere" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="-77.0" y="0.0" />
+      <point x="-116.5" y="-150.0" />
+      <point x="7.5" y="-160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.UniteValeur" target="net.ent.etrs.gestionstagiaire.model.entities.Evaluation" relationship="TO_MANY">
+      <point x="123.5" y="0.0" />
+      <point x="356.0" y="-370.0" />
+      <point x="356.0" y="105.0" />
+      <point x="122.5" y="-5.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Evaluation" target="net.ent.etrs.gestionstagiaire.model.entities.Matiere" relationship="TO_ONE">
+      <point x="0.0" y="-127.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.IngenierieFormation" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="110.5" y="0.0" />
+      <point x="-138.5" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stage" target="net.ent.etrs.gestionstagiaire.model.entities.Stagiaire" relationship="TO_MANY">
+      <point x="154.0" y="5.0" />
+      <point x="701.0" y="1835.0" />
+      <point x="5.0" y="479.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.UniteValeur" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="-2.5" y="94.0" />
+      <point x="-2.5" y="-160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.MyUser" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="181.5" y="0.0" />
+      <point x="-159.75" y="730.0" />
+      <point x="-35.75" y="160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.MyUser" target="net.ent.etrs.gestionstagiaire.model.entities.references.Role" relationship="TO_MANY">
+      <point x="-63.5" y="347.0" />
+      <point x="0.0" y="-72.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.IngenierieFormation" target="net.ent.etrs.gestionstagiaire.model.entities.UniteValeur" relationship="TO_MANY">
+      <point x="0.0" y="-193.0" />
+      <point x="-424.0" y="-370.0" />
+      <point x="-123.5" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Formateur" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="-84.5" y="0.0" />
+      <point x="-139.75" y="1370.0" />
+      <point x="-15.75" y="160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Evaluation" target="net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance" relationship="TO_ONE">
+      <point x="122.5" y="5.0" />
+      <point x="-103.5" y="5.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stagiaire" target="net.ent.etrs.gestionstagiaire.model.entities.references.Grade" relationship="TO_ONE">
+      <point x="-5.0" y="479.0" />
+      <point x="691.0" y="1370.0" />
+      <point x="82.0" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stage" target="net.ent.etrs.gestionstagiaire.model.entities.Formateur" relationship="TO_ONE">
+      <point x="154.0" y="-5.0" />
+      <point x="196.0" y="1825.0" />
+      <point x="-0.0" y="138.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stagiaire" target="net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance" relationship="TO_ONE">
+      <point x="0.0" y="-479.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Note" target="net.ent.etrs.gestionstagiaire.model.entities.Formateur" relationship="TO_ONE">
+      <point x="0.0" y="160.0" />
+      <point x="0.0" y="-138.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stagiaire" target="net.ent.etrs.gestionstagiaire.model.entities.Note" relationship="TO_MANY">
+      <point x="-124.0" y="0.0" />
+      <point x="105.0" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Evaluation" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="-122.5" y="0.0" />
+      <point x="138.5" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.IngenierieFormation" target="net.ent.etrs.gestionstagiaire.model.entities.references.TypeIF" relationship="TO_ONE">
+      <point x="-110.5" y="0.0" />
+      <point x="83.5" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stage" target="net.ent.etrs.gestionstagiaire.model.entities.IngenierieFormation" relationship="TO_ONE">
+      <point x="-154.0" y="0.0" />
+      <point x="-424.0" y="1830.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Formateur" target="net.ent.etrs.gestionstagiaire.model.entities.references.Grade" relationship="TO_ONE">
+      <point x="84.5" y="0.0" />
+      <point x="-82.0" y="0.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stage" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="-25.75" y="-270.0" />
+      <point x="-25.75" y="160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Stagiaire" target="net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity" relationship="GENERALIZATION">
+      <point x="124.0" y="0.0" />
+      <point x="822.0" y="770.0" />
+      <point x="822.0" y="-52.0" />
+      <point x="-106.5" y="-52.0" />
+      <point x="17.5" y="-160.0" />
+    </edge>
+    <edge source="net.ent.etrs.gestionstagiaire.model.entities.Note" target="net.ent.etrs.gestionstagiaire.model.entities.Evaluation" relationship="TO_ONE">
+      <point x="0.0" y="-160.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+  </edges>
+  <settings layout="Compact" zoom="0.32972136222910214" showDependencies="true" x="8.0" y="828.0" />
+  <SelectedNodes>
+    <node>net.ent.etrs.gestionstagiaire.model.entities.AbstractEntity</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
