@@ -1,6 +1,7 @@
 package net.ent.etrs.gestionstagiaire;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
 import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
 import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
+@CommonsLog(topic = "SOUT")
 public class MyRunner2 implements CommandLineRunner {
 
     //    @Autowired
@@ -49,11 +51,11 @@ public class MyRunner2 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(this.text);
+        log.trace(this.text);
 
 
         try {
-            System.out.println(">>>>>>>>>>>>>>>>>>>runner 0");
+            log.trace(">>>>>>>>>>>>>>>>>>>runner 0");
             userDetailsService.save(new UserDTO("ADMIN", "ADMIN", true, true, true, true));
             userDetailsService.save(UserDTO.builder().username("ADMIN2").password("ADMIN2").enabled(true).build());
             userDetailsService.save(new UserDTO("ADMIN3", "ADMIN3", true, true, true, true));
@@ -70,18 +72,18 @@ public class MyRunner2 implements CommandLineRunner {
             stagiaireRepo.save(DtoUtils.stagiaireFromDto(stagiaireDto));
 
 
-            System.out.println(">>>>>>>>>>>>>>>>>>>runner 1");
+            log.trace(">>>>>>>>>>>>>>>>>>>runner 1");
             Stagiaire stagiaire = new Stagiaire();
             stagiaire.setNom("toto9");
             stagiaire.setPrenom("totop9");
             stagiaire.setGrade(Grade.ADJ);
             stagiaire.setAppartenance(Appartenance.TERRE);
             stagiaire.setNid("5643217891");
-            System.out.println(">>>>>>>>>>>>>>>>>>>runner 2");
+            log.trace(">>>>>>>>>>>>>>>>>>>runner 2");
 //            titi();
-            System.out.println(">>>>>>>>>>>>>>>>>>>runner 3");
+            log.trace(">>>>>>>>>>>>>>>>>>>runner 3");
             stagiaireRepo.save(stagiaire);
-            System.out.println(">>>>>>>>>>>>>>>>>>>runner 4");
+            log.trace(">>>>>>>>>>>>>>>>>>>runner 4");
             Stage stage = new Stage();
 
             stage.setCodeStage("CG91");
@@ -95,7 +97,7 @@ public class MyRunner2 implements CommandLineRunner {
             formateurRepo.save(formateur);
             stage.setCdsf(formateur);
 //            stageRepo.save(stage);
-            System.out.println("recherche stage CG91" + iStageFacade.findByCodeStage("CG91"));
+            log.trace("recherche stage CG91" + iStageFacade.findByCodeStage("CG91"));
 
             iStageFacade.save(stage);
 
@@ -111,7 +113,7 @@ public class MyRunner2 implements CommandLineRunner {
             formateurRepo.save(formateur2);
             stage2.setCdsf(formateur2);
 //            stageRepo.save(stage);
-            System.out.println("recherche stage GJ50" + iStageFacade.findByCodeStage("GJ50"));
+            log.trace("recherche stage GJ50" + iStageFacade.findByCodeStage("GJ50"));
 
             iStageFacade.save(stage2);
 
@@ -124,10 +126,10 @@ public class MyRunner2 implements CommandLineRunner {
     }
 
     private void titi() {
-        System.out.println("### getUsernameOfAuthenticatedUser");
+        log.trace("### getUsernameOfAuthenticatedUser");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        System.out.println("authentication.getPrincipal()).getUsername() " + ((MyUser) authentication.getPrincipal()).getUsername());
+        log.trace("authentication.getPrincipal()).getUsername() " + ((MyUser) authentication.getPrincipal()).getUsername());
     }
 }

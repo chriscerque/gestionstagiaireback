@@ -1,5 +1,6 @@
 package net.ent.etrs.gestionstagiaire.config;
 
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@CommonsLog(topic = "SOUT")
 public class WebSecurityConfig {
 
     //    @Autowired
@@ -55,7 +57,7 @@ public class WebSecurityConfig {
     public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder bCryptPasswordEncoder, MyUserDetailService userDetailService)
             throws Exception {
         //TODO SOUT
-        System.out.println("WebConfig / authManager");
+        log.trace("WebConfig / authManager");
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailService)
                 .passwordEncoder(bCryptPasswordEncoder)
@@ -65,7 +67,7 @@ public class WebSecurityConfig {
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth, MyUserDetailService userDetailsService) throws Exception {
-//        System.out.println("WebConfig / configureGlobal");
+//        log.trace("WebConfig / configureGlobal");
 //        // configure AuthenticationManager so that it knows from where to load
 //        // user for matching credentials
 //        // Use BCryptPasswordEncoder
@@ -74,20 +76,20 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        System.out.println("WebConfig / passwordEncoder");
+        log.trace("WebConfig / passwordEncoder");
         return new BCryptPasswordEncoder();
     }
 
 //    @Bean
 //    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        System.out.println("WebConfig / authenticationManagerBean");
+//        log.trace("WebConfig / authenticationManagerBean");
 ////        return authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()).and().build();
 //        return authenticationConfiguration.getAuthenticationManager();
 //    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        System.out.println("WebConfig / configure");
+        log.trace("WebConfig / configure");
         // We don't need CSRF for this example
         httpSecurity.csrf().disable()
                 .addFilterBefore(jwtRequestFilter, AnonymousAuthenticationFilter.class)

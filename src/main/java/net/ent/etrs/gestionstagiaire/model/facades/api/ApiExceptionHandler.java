@@ -1,5 +1,6 @@
 package net.ent.etrs.gestionstagiaire.model.facades.api;
 
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,13 @@ import java.sql.SQLException;
 
 @RestController
 @RestControllerAdvice
+@CommonsLog(topic = "SOUT")
 public class ApiExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiErrorVO handleValidationError(MethodArgumentNotValidException ex) {
-        System.out.println("ApiExceptionHandler / handleValidationError MethodArgumentNotValidException");
+        log.trace("ApiExceptionHandler / handleValidationError MethodArgumentNotValidException");
         BindingResult bindingResult = ex.getBindingResult();
         FieldError fieldError = bindingResult.getFieldError();
         String defaultMessage = fieldError.getDefaultMessage();
@@ -29,20 +31,20 @@ public class ApiExceptionHandler {
 //    @ResponseStatus(code = HttpStatus.CONFLICT)
 //    @ResponseBody
     public ResponseEntity<ApiErrorVO> handleValidationError(DataIntegrityViolationException ex) {
-        System.out.println("ApiExceptionHandler / handleValidationError DataIntegrityViolationException");
+        log.trace("ApiExceptionHandler / handleValidationError DataIntegrityViolationException");
 //        ex.printStackTrace();
         ApiErrorVO apiErrorVO;
         Throwable th = ex.getCause();
-        System.out.println("ex.getCause().getClass() : " + ex.getCause().getClass());
+        log.trace("ex.getCause().getClass() : " + ex.getCause().getClass());
         if (th instanceof org.hibernate.exception.ConstraintViolationException) {
-//            System.out.println("((ConstraintViolationException) ex.getCause()).getConstraintName() : " + ((ConstraintViolationException) ex.getCause()).getConstraintName());
-            System.out.println("th.getCause().getClass() : " + th.getCause().getClass());
+//            log.trace("((ConstraintViolationException) ex.getCause()).getConstraintName() : " + ((ConstraintViolationException) ex.getCause()).getConstraintName());
+            log.trace("th.getCause().getClass() : " + th.getCause().getClass());
             apiErrorVO = new ApiErrorVO("VALIDATION_FAILED ConstraintViolationException", th.getCause().getMessage());
-            System.out.println("apiErrorVO : " + apiErrorVO);
+            log.trace("apiErrorVO : " + apiErrorVO);
             return ResponseEntity.status(HttpStatus.CONFLICT).body(apiErrorVO);
         } else {
             apiErrorVO = new ApiErrorVO("VALIDATION_FAILED ConstraintViolationException", th.getMessage());
-            System.out.println("apiErrorVO : " + apiErrorVO);
+            log.trace("apiErrorVO : " + apiErrorVO);
             return ResponseEntity.status(HttpStatus.CONFLICT).body(apiErrorVO);
         }
     }
@@ -51,7 +53,7 @@ public class ApiExceptionHandler {
     @ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
     public ApiErrorVO handleValidationError(ConstraintViolationException ex) {
-        System.out.println("ApiExceptionHandler / handleValidationError ConstraintViolationException");
+        log.trace("ApiExceptionHandler / handleValidationError ConstraintViolationException");
 //        ex.printStackTrace();
 //        BindingResult bindingResult = ex.getBindingResult();
 //        FieldError fieldError = bindingResult.getFieldError();
@@ -64,13 +66,13 @@ public class ApiExceptionHandler {
     @ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
     public ApiErrorVO handleValidationError(SQLException ex) {
-        System.out.println("ApiExceptionHandler / handleValidationError SQLException");
+        log.trace("ApiExceptionHandler / handleValidationError SQLException");
 //        BindingResult bindingResult = ex.getBindingResult();
 //        FieldError fieldError = bindingResult.getFieldError();
 //        String defaultMessage = fieldError.getDefaultMessage();
 //        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new ApiErrorVO("VALIDATION_FAILED", ex.getMessage()));
         ApiErrorVO apiErrorVO = new ApiErrorVO("VALIDATION_FAILED", ex.getMessage());
-        System.out.println("apiErrorVO : " + apiErrorVO);
+        log.trace("apiErrorVO : " + apiErrorVO);
         return apiErrorVO;
     }
 

@@ -2,16 +2,19 @@ package net.ent.etrs.gestionstagiaire.controllers.dto;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Evaluation;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
 import net.ent.etrs.gestionstagiaire.model.entities.Note;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@CommonsLog(topic = "SOUT")
 public final class DtoUtils {
 
     public static StagiaireDto stagiaireToDto(Stagiaire stagiaire) {
         StagiaireDto stagiaireDto = new StagiaireDto();
+        stagiaireDto.id = stagiaire.getId();
         stagiaireDto.nom = stagiaire.getNom();
         stagiaireDto.prenom = stagiaire.getPrenom();
         stagiaireDto.grade = stagiaire.getGrade();
@@ -43,7 +46,7 @@ public final class DtoUtils {
         stagiaire.setNumBadgeMess(stagiaireDto.numBadgeMess);
         stagiaire.setNumBadgeAcces(stagiaireDto.numBadgeAcces);
         stagiaireDto.noteList.forEach(n -> stagiaire.ajouterNote(DtoUtils.noteFromDto(n)));
-        System.out.println("stagiaireFromDto : " + stagiaireDto);
+        log.trace("stagiaireFromDto : " + stagiaireDto);
         return stagiaire;
     }
 

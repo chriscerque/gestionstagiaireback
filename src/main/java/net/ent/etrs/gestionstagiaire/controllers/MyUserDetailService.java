@@ -1,6 +1,7 @@
 package net.ent.etrs.gestionstagiaire.controllers;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.NonUniqueResultException;
 
 @Service
+@CommonsLog(topic = "SOUT")
 public class MyUserDetailService implements UserDetailsService {
 
     //    @Autowired
@@ -22,20 +24,20 @@ public class MyUserDetailService implements UserDetailsService {
 
     public MyUserDetailService(UserRepo userRepo, PasswordEncoder bcryptEncoder) {
         //TODO SOUT
-        System.out.println("MyUserDetailService constructor");
+        log.trace("MyUserDetailService constructor");
         this.userRepo = userRepo;
         this.bcryptEncoder = bcryptEncoder;
     }
 
     @Override
     public MyUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(">>>>>>>>>>MyUserDetailService/loadUserByUsername");
+        log.trace(">>>>>>>>>>MyUserDetailService/loadUserByUsername");
 
         try {
-            System.out.println("username: " + username);
+            log.trace("username: " + username);
 //            MyUser user = userRepo.findUserByUsername(username).orElseThrow(() ->new NonUniqueResultException("tutututututu"));
             MyUser myUser = userRepo.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("tototototototototototo"));
-            System.out.println("user : " + myUser);
+            log.trace("user : " + myUser);
 //            if (user == null) {
 //                throw new UsernameNotFoundException("User not found with username: " + username);
 //            }
@@ -52,18 +54,18 @@ public class MyUserDetailService implements UserDetailsService {
 
 //        try {
 //
-//            System.out.println("username : " + username);
+//            log.trace("username : " + username);
 //            Objects.requireNonNull(username);
 //            UserDetails user = userRepo.findUserByUsername(username)
 //                    .orElseThrow(() -> new UsernameNotFoundException(String.format("Username[%s] not found",username)));
 //
-//            System.out.println("user : " + user);
+//            log.trace("user : " + user);
 //            return user;
 //        }catch (Exception e){
 //            e.printStackTrace();
 //
 //        }
-//        System.out.println("return nullllllllllll");
+//        log.trace("return nullllllllllll");
 //        return null;
     }
 
@@ -79,12 +81,12 @@ public class MyUserDetailService implements UserDetailsService {
         newUser.setAccountNonLocked(userDTO.isAccountNonLocked());
 
         try {
-            System.out.println(">>>>>>>>>>MyUserDetailService/save try");
+            log.trace(">>>>>>>>>>MyUserDetailService/save try");
 
             MyUser u = this.loadUserByUsername(newUser.getUsername());
             return u;
         } catch (UsernameNotFoundException | NonUniqueResultException e) {
-            System.out.println(">>>>>>>>>>MyUserDetailService/save catch");
+            log.trace(">>>>>>>>>>MyUserDetailService/save catch");
             return userRepo.save(newUser);
         }
 

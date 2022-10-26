@@ -1,5 +1,6 @@
 package net.ent.etrs.gestionstagiaire.config.db;
 
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = {"net.ent.etrs.gestionstagiaire.model.repo"})
 @EntityScan(basePackages = {"net.ent.etrs.gestionstagiaire.model"})
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@CommonsLog(topic = "SOUT")
 public class PersistenceSecurityConfig {
     @Bean
     AuditorAware<String> auditorProvider() {
-        System.out.println(">>>>>>>>PersistenceConfig/auditorProvider");
+        log.trace(">>>>>>>>PersistenceConfig/auditorProvider");
         return new AuditorAwareImpl();
     }
 

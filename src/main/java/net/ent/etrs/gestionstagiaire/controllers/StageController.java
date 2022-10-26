@@ -1,6 +1,7 @@
 package net.ent.etrs.gestionstagiaire.controllers;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/stages")
+@CommonsLog(topic = "SOUT")
 public class StageController {
 
     @Autowired
@@ -19,8 +21,8 @@ public class StageController {
 
     @GetMapping(produces = "application/json;charset=utf-8", path = "/")
     public List<Stage> getStages() {
-        System.out.println("getStages");
-        stageRepo.findAll().forEach(s -> System.out.printf("%s : %s | %s%n", s.getCodeStage(), s.getDateDebut(), s.getDateFin()));
+        log.trace("getStages");
+        stageRepo.findAll().forEach(s -> log.trace(String.format("%s : %s | %s%n", s.getCodeStage(), s.getDateDebut(), s.getDateFin())));
 
         return stageRepo.findAll();
     }

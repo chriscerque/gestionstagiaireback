@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@CommonsLog(topic = "SOUT")
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -31,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 //    public JwtRequestFilter(MyUserDetailService myUserDetailService, JwtTokenUtil jwtTokenUtil) {
 //        //TODO SOUT
-//        System.out.println("JwtRequestFilter constructor");
+//        log.trace("JwtRequestFilter constructor");
 //        this.myUserDetailService = myUserDetailService;
 //        this.jwtTokenUtil = jwtTokenUtil;
 //    }
@@ -40,51 +42,51 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        System.out.println("JwtRequestFilter / doFilterInternal");
-        System.out.println("request.getRequestURI() : " + request.getRequestURI());
-        System.out.println("request.getHeaderNames() : " + request.getHeaderNames());
-        request.getHeaderNames().asIterator().forEachRemaining(s -> System.out.println(s));
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("response : " + response);
+        log.trace("JwtRequestFilter / doFilterInternal");
+        log.trace("request.getRequestURI() : " + request.getRequestURI());
+        log.trace("request.getHeaderNames() : " + request.getHeaderNames());
+        request.getHeaderNames().asIterator().forEachRemaining(s -> log.trace(s));
+        log.trace("----------------------------------------------------------------");
+        log.trace("response : " + response);
         final String requestTokenHeader = request.getHeader("Authorization");
-        System.out.println("requestTokenHeader : " + requestTokenHeader);
+        log.trace("requestTokenHeader : " + requestTokenHeader);
         String username = null;
         String jwtToken = null;
         // JWT Token is in the form "Bearer token". Remove Bearer word and get
         // only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            System.out.println("JwtRequestFilter / doFilterInternal 21");
+            log.trace("JwtRequestFilter / doFilterInternal 21");
             jwtToken = requestTokenHeader.substring(7);
             try {
-                System.out.println("JwtRequestFilter / doFilterInternal 22");
+                log.trace("JwtRequestFilter / doFilterInternal 22");
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                System.out.println("Unable to get JWT Token");
+                log.trace("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token has expired");
+                log.trace("JWT Token has expired");
             } catch (UnsupportedJwtException e) {
-                System.out.println("JWT Token Unsupported");
+                log.trace("JWT Token Unsupported");
             } catch (MalformedJwtException e) {
-                System.out.println("JWT Token Malformed");
+                log.trace("JWT Token Malformed");
             } catch (SignatureException e) {
-                System.out.println("JWT Token Bad Signature");
+                log.trace("JWT Token Bad Signature");
             }
         } else {
             logger.warn("JWT Token does not begin with Bearer String");
         }
-        System.out.println("JwtRequestFilter / doFilterInternal 31 ");
-        System.out.println("username : " + username);
+        log.trace("JwtRequestFilter / doFilterInternal 31 ");
+        log.trace("username : " + username);
         // Once we get the token validate it.
-        System.out.println("SecurityContextHolder.getContext() : " + SecurityContextHolder.getContext());
-        System.out.println("SecurityContextHolder.getContext().getAuthentication() : " + SecurityContextHolder.getContext().getAuthentication());
+        log.trace("SecurityContextHolder.getContext() : " + SecurityContextHolder.getContext());
+        log.trace("SecurityContextHolder.getContext().getAuthentication() : " + SecurityContextHolder.getContext().getAuthentication());
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println("JwtRequestFilter / doFilterInternal 32 dans if");
+            log.trace("JwtRequestFilter / doFilterInternal 32 dans if");
             UserDetails userDetails = this.myUserDetailService.loadUserByUsername(username);
-            System.out.println("userDetails : " + userDetails);
+            log.trace("userDetails : " + userDetails);
             // if token is valid configure Spring Security to manually set
             // authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                System.out.println("jwtTokenUtil.validateToken(jwtToken, userDetails)");
+                log.trace("jwtTokenUtil.validateToken(jwtToken, userDetails)");
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
@@ -95,7 +97,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        System.out.println("JwtRequestFilter / doFilterInternal fin");
+        log.trace("JwtRequestFilter / doFilterInternal fin");
         chain.doFilter(request, response);
 
 

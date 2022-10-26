@@ -1,5 +1,6 @@
 package net.ent.etrs.gestionstagiaire.model.services;
 
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@CommonsLog(topic = "SOUT")
 public class StagiaireFacade extends AbstractFacade implements IStagiaireFacade {
 
 
@@ -24,11 +26,11 @@ public class StagiaireFacade extends AbstractFacade implements IStagiaireFacade 
 //        try {
 
         if (stagiaire.getId() != null) {
-            System.out.println("StagiaireFacade.save id not null ");
-            System.out.println("stagiaire : " + stagiaire);
+            log.trace("StagiaireFacade.save id not null ");
+            log.trace("stagiaire : " + stagiaire);
             return Optional.of(this.stagiaireRepo.save(stagiaire));
         } else {
-            System.out.println("StagiaireFacade.save id null ");
+            log.trace("StagiaireFacade.save id null ");
             return Optional.of(this.stagiaireRepo.save(stagiaire));
         }
 
@@ -37,7 +39,7 @@ public class StagiaireFacade extends AbstractFacade implements IStagiaireFacade 
 ////            if (oStagiaire.isPresent()) {
 //            Optional<Stagiaire> oStagiaire = this.stagiaireRepo.findStagiaireByNid(stagiaire.getNid());
 //            if (oStagiaire.isPresent()) {
-//                System.out.println("stagaire findOne : " + this.stagiaireRepo.findOne(Example.of(stagiaire)));
+//                log.trace("stagaire findOne : " + this.stagiaireRepo.findOne(Example.of(stagiaire)));
 //                return Optional.of(this.stagiaireRepo.save(stagiaire));
 //            } else {
 //                return Optional.of(this.stagiaireRepo.save(stagiaire));
@@ -46,11 +48,11 @@ public class StagiaireFacade extends AbstractFacade implements IStagiaireFacade 
 //            }
 //            return Optional.ofNullable(stagiaire);
 //        } catch (DataIntegrityViolationException e) {
-//            System.out.println("StagiaireFacade.save exception : DataIntegrityViolationException ");
+//            log.trace("StagiaireFacade.save exception : DataIntegrityViolationException ");
 //            e.printStackTrace();
 //            return Optional.ofNullable(stagiaire);
 //        } catch (Exception e) {
-//            System.out.println("StagiaireFacade.save exception : Exception ");
+//            log.trace("StagiaireFacade.save exception : Exception ");
 //            e.printStackTrace();
 //            return Optional.ofNullable(stagiaire);
 //        }
