@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements Serializable {
     // annotation lombok
     @Getter
@@ -32,7 +33,7 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
 //    @Column(name = "UUID")
 //    protected String uuid = UUID.randomUUID().toString();
 
-    @Column(name = "CREATED_BY_USER", nullable = true, columnDefinition = "VARCHAR(255) default 'ANONYMOUS'")
+    @Column(name = "CREATED_BY_USER", nullable = false, updatable = false, columnDefinition = "VARCHAR(255) default 'ANONYMOUS'")
     @CreatedBy
     private String createdByUser;
 
@@ -40,7 +41,7 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
     @LastModifiedBy
     private String modifiedByUser;
 
-    @Column(name = "CREATED_DATE", nullable = false)
+    @Column(name = "CREATED_DATE", nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
 
