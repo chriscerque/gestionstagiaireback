@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequestMapping(value = "/stagiaires")
 
 public class StagiaireController {
-    
+
     private IStagiaireFacade stagiaireFacade;
 
     public StagiaireController(IStagiaireFacade stagiaireFacade) {
@@ -34,9 +34,6 @@ public class StagiaireController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
-//        stagiaireRepo.findAll().forEach(s -> System.out.printf("%s : %s | %s%n", s.getNom(), s.getPrenom(), s.getAppartenance()));
-//
-//        return stagiaireRepo.findAll();
     }
 
     @PostMapping(path = "/", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")
