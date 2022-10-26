@@ -121,7 +121,7 @@ public class MyRunner2 implements CommandLineRunner {
 //        stageRepo.saveAndFlush(stage);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e.getMessage());
+            log.trace(e.getMessage());
         }
     }
 

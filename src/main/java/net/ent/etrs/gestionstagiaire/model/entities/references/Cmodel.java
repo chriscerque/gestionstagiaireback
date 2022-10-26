@@ -1,6 +1,11 @@
 package net.ent.etrs.gestionstagiaire.model.entities.references;
 
-public class Cmodel {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Cmodel {
+
     public static final String BV_MATIERE_LIBELLE_NOT_NULL_NOT_EMPTY = "Le libellé de la matière doit être renseigné.";
     public static final String BV_EVALUATION_COEFF = "Le coefficient doit être positif.";
     public static final String BV_EVALUATION_TYPE_STAGIAIRE = "Le type stagiaire n'est pas valide.";

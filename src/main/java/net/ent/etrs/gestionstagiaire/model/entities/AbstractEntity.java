@@ -2,6 +2,7 @@ package net.ent.etrs.gestionstagiaire.model.entities;
 
 
 import lombok.*;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @ToString
+@CommonsLog(topic = "SOUT")
 public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements Serializable {
     // annotation lombok
     @Getter
@@ -66,11 +68,11 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
 //    }
 
     private String getUsernameOfAuthenticatedUser() {
-        System.out.println("### getUsernameOfAuthenticatedUser");
+        log.trace("### getUsernameOfAuthenticatedUser");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication : " + authentication);
-        System.out.println("authentication.getPrincipal()).getUsername() " + ((MyUser) authentication.getPrincipal()).getUsername());
+        log.trace("authentication : " + authentication);
+        log.trace("authentication.getPrincipal()).getUsername() " + ((MyUser) authentication.getPrincipal()).getUsername());
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }

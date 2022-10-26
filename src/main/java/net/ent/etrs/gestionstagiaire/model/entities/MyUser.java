@@ -3,6 +3,7 @@ package net.ent.etrs.gestionstagiaire.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +21,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @ToString
+@CommonsLog(topic = "SOUT")
 public class MyUser extends AbstractEntity implements UserDetails {
 
 //    @Id
@@ -113,9 +115,9 @@ public class MyUser extends AbstractEntity implements UserDetails {
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println("roles :::::: ");
-        System.out.println("roles.size() : " + roles.size());
-        roles.forEach(System.out::println);
+        log.trace("roles :::::: ");
+        log.trace("roles.size() : " + roles.size());
+        roles.forEach(log::trace);
         roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.toString())));
         return authorities;
     }
