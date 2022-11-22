@@ -72,12 +72,12 @@ public class AbstractEntity /*extends AbstractAuditable<User, Long>*/ implements
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.trace("authentication : " + authentication);
-        log.trace("authentication.getPrincipal()).getUsername() " + ((MyUser) authentication.getPrincipal()).getUsername());
+        log.trace("authentication.getPrincipal()).getUsername() " + ((MyUserDetails) authentication.getPrincipal()).getUsername());
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
 
-        return ((MyUser) authentication.getPrincipal()).getUsername();
+        return ((MyUserDetails) authentication.getPrincipal()).getUsername();
     }
 
 }

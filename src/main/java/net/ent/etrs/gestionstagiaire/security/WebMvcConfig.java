@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.config;
+package net.ent.etrs.gestionstagiaire.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.config;
+package net.ent.etrs.gestionstagiaire.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.apachecommons.CommonsLog;

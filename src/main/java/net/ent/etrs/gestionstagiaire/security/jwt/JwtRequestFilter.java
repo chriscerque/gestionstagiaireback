@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.config;
+package net.ent.etrs.gestionstagiaire.security.jwt;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -6,8 +6,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.ent.etrs.gestionstagiaire.security.services.MyUserDetailService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,18 +24,18 @@ import java.io.IOException;
 @CommonsLog(topic = "SOUT")
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
+    //    @Autowired
     private MyUserDetailService myUserDetailService;
 
-    @Autowired
+    //    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-//    public JwtRequestFilter(MyUserDetailService myUserDetailService, JwtTokenUtil jwtTokenUtil) {
-//        //TODO SOUT
-//        log.trace("JwtRequestFilter constructor");
-//        this.myUserDetailService = myUserDetailService;
-//        this.jwtTokenUtil = jwtTokenUtil;
-//    }
+    public JwtRequestFilter(MyUserDetailService myUserDetailService, JwtTokenUtil jwtTokenUtil) {
+        //TODO SOUT
+        log.trace("JwtRequestFilter constructor");
+        this.myUserDetailService = myUserDetailService;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -45,7 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         log.trace("JwtRequestFilter / doFilterInternal");
         log.trace("request.getRequestURI() : " + request.getRequestURI());
         log.trace("request.getHeaderNames() : " + request.getHeaderNames());
-        request.getHeaderNames().asIterator().forEachRemaining(s -> log.trace(s));
+//        request.getHeaderNames().asIterator().forEachRemaining(s -> log.trace(s));
         log.trace("----------------------------------------------------------------");
         log.trace("response : " + response);
         final String requestTokenHeader = request.getHeader("Authorization");

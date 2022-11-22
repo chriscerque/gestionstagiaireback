@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @CommonsLog(topic = "SOUT")
-public class MyUser extends AbstractEntity implements UserDetails {
+public class MyUserDetails extends AbstractEntity implements UserDetails {
 
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)

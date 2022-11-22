@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.config.db;
+package net.ent.etrs.gestionstagiaire.security.db;
 
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
