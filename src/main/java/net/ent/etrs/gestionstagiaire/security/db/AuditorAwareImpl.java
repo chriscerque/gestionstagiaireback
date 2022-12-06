@@ -1,7 +1,7 @@
-package net.ent.etrs.gestionstagiaire.config.db;
+package net.ent.etrs.gestionstagiaire.security.db;
 
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
+import net.ent.etrs.gestionstagiaire.model.entities.MyUserDetails;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -34,9 +34,9 @@ public class AuditorAwareImpl implements AuditorAware<String> {
             return Optional.of("ANONYMOUS");
 //            return Optional.of(((MyUser) new AnonymousAuthenticationFilter("Anonymous").getPrincipal()).getUsername());
         }
-        if (authentication.getPrincipal() instanceof MyUser) {
-            log.trace("((User) authentication.getPrincipal()).getUsername() : " + ((MyUser) authentication.getPrincipal()).getUsername());
-            return Optional.of(((MyUser) authentication.getPrincipal()).getUsername());
+        if (authentication.getPrincipal() instanceof MyUserDetails) {
+            log.trace("((User) authentication.getPrincipal()).getUsername() : " + ((MyUserDetails) authentication.getPrincipal()).getUsername());
+            return Optional.of(((MyUserDetails) authentication.getPrincipal()).getUsername());
         } else {
             log.trace("authentication.getClass() : " + authentication.getClass());
             return Optional.of(((AnonymousAuthenticationToken) authentication.getPrincipal()).getName());

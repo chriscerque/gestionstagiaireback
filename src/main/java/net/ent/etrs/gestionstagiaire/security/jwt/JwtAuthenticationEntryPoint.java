@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.config;
+package net.ent.etrs.gestionstagiaire.security.jwt;
 
 
 import lombok.extern.apachecommons.CommonsLog;

@@ -2,16 +2,20 @@ package net.ent.etrs.gestionstagiaire.controllers;
 
 import io.jsonwebtoken.SignatureException;
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.config.JwtTokenUtil;
 import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
-import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
+import net.ent.etrs.gestionstagiaire.model.entities.MyUserDetails;
+import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
+import net.ent.etrs.gestionstagiaire.security.jwt.JwtTokenUtil;
+import net.ent.etrs.gestionstagiaire.security.services.MyUserDetailService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +37,10 @@ public class JwtAuthenticationController {
     //    @Autowired
     private MyUserDetailService userDetailsService;
 
+    private UserRepo userRepo;
+
+
+    private PasswordEncoder encoder;
 //    @Autowired
 //    private PasswordEncoder bcryptEncoder;
 //
@@ -40,14 +48,15 @@ public class JwtAuthenticationController {
 //    private UserRepo userRepo;
 
 
-    public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, MyUserDetailService userDetailsService) {
+    public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, MyUserDetailService userDetailsService, PasswordEncoder encoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
+        this.encoder = encoder;
     }
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<MyUser> createAuthenticationToken(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<MyUserDetails> createAuthenticationToken(@RequestBody UserDTO userDTO) {
         log.trace("JwtAuthenticationController / createAuthenticationToken");
         log.trace("authenticationRequest.getUsername() : " + userDTO.getUsername());
         log.trace("authenticationRequest.getPassword() : " + userDTO.getPassword());
@@ -57,21 +66,24 @@ public class JwtAuthenticationController {
 
             log.trace("JwtAuthenticationController / createAuthenticationToken 2");
             log.trace("SecurityContextHolder.getContext().getAuthentication().getPrincipal() : " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            log.trace("SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass() : " + SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass());
 
+//            UserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             final UserDetails userDetails = userDetailsService
                     .loadUserByUsername(userDTO.getUsername());
+
             log.trace("userDetails : " + userDetails);
             log.trace("JwtAuthenticationController / createAuthenticationToken 3");
             final String token = jwtTokenUtil.generateToken(userDetails);
             log.trace("JwtAuthenticationController / createAuthenticationToken 4");
 //			return ResponseEntity.ok(new JwtResponse(token));
-            MyUser myUser = new MyUser();
+            MyUserDetails myUser = new MyUserDetails();
             myUser.setUsername(userDetails.getUsername());
 //			return ResponseEntity.ok().header("Authorization",token).body(myUser);
             HttpHeaders responseHeaders = new HttpHeaders();
 //			responseHeaders.setLocation(location);
             responseHeaders.set("Authorization", token);
-            return new ResponseEntity<MyUser>(myUser, responseHeaders, HttpStatus.OK);
+            return new ResponseEntity<MyUserDetails>(myUser, responseHeaders, HttpStatus.OK);
         } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException |
                  SignatureException e) {
             log.trace(">>>>>>>>>>>>>>>>>>>>>ERR");
@@ -79,24 +91,29 @@ public class JwtAuthenticationController {
 //			throw new Exception(e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e1) {
-//            e1.printStackTrace();
+            e1.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 //        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<MyUser> saveUser(@RequestBody UserDTO user) throws Exception {
+    public ResponseEntity<MyUserDetails> saveUser(@RequestBody UserDTO user) throws Exception {
         log.trace("JwtAuthenticationController / saveUser");
-        MyUser myUser = userDetailsService.save(user);
-        return ResponseEntity.ok(myUser);
+        MyUserDetails myUserDetails = MyUserDetails.builder()
+                .username(user.getUsername())
+                .password(encoder.encode(user.getPassword()))
+//                .roles(user.roles())
+                .build();
+        userRepo.save(myUserDetails);
+        return ResponseEntity.ok(myUserDetails);
     }
 
 
-    private void authenticate(String username, String password) throws Exception {
+    private Authentication authenticate(String username, String password) throws Exception {
         try {
             log.trace("JwtAuthenticationController / authenticate");
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             e.printStackTrace();
             throw new Exception("USER_DISABLED", e);

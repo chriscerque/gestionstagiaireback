@@ -2,12 +2,10 @@ package net.ent.etrs.gestionstagiaire;
 
 
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
 import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
 import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
-import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
-import net.ent.etrs.gestionstagiaire.model.entities.MyUser;
+import net.ent.etrs.gestionstagiaire.model.entities.MyUserDetails;
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance;
@@ -16,11 +14,13 @@ import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
 import net.ent.etrs.gestionstagiaire.model.services.IStageFacade;
+import net.ent.etrs.gestionstagiaire.security.services.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -42,6 +42,9 @@ public class MyRunner2 implements CommandLineRunner {
     @Autowired
     private MyUserDetailService userDetailsService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
 
     @Value("${toto.var}")
     private String text;
@@ -56,10 +59,11 @@ public class MyRunner2 implements CommandLineRunner {
 
         try {
             log.trace(">>>>>>>>>>>>>>>>>>>runner 0");
-            userDetailsService.save(new UserDTO("ADMIN", "ADMIN", true, true, true, true));
-            userDetailsService.save(UserDTO.builder().username("ADMIN2").password("ADMIN2").enabled(true).build());
-            userDetailsService.save(new UserDTO("ADMIN3", "ADMIN3", true, true, true, true));
-            userDetailsService.save(new UserDTO("ADMIN4", "ADMIN4", false, true, false, true));
+            userRepo.save(MyUserDetails.builder().username("ADMIN").password(encoder.encode("ADMIN")).accountNonExpired(true).credentialsNonExpired(true).accountNonLocked(true).enabled(true).build());
+            userRepo.save(MyUserDetails.builder().username("ADMIN2").password(encoder.encode("ADMIN2")).enabled(true).build());
+            userRepo.save(MyUserDetails.builder().username("ADMIN3").password(encoder.encode("ADMIN3")).accountNonExpired(true).credentialsNonExpired(true).accountNonLocked(true).enabled(true).build());
+            userRepo.save(MyUserDetails.builder().username("ADMIN4").password(encoder.encode("ADMIN4")).accountNonExpired(false).accountNonLocked(true).credentialsNonExpired(false).enabled(true).build());
+
 
             StagiaireDto stagiaireDto = new StagiaireDto();
             stagiaireDto.nid = "0123456789";
@@ -130,6 +134,6 @@ public class MyRunner2 implements CommandLineRunner {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        log.trace("authentication.getPrincipal()).getUsername() " + ((MyUser) authentication.getPrincipal()).getUsername());
+        log.trace("authentication.getPrincipal()).getUsername() " + ((MyUserDetails) authentication.getPrincipal()).getUsername());
     }
 }
