@@ -45,7 +45,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         log.trace("JwtRequestFilter / doFilterInternal");
         log.trace("request.getRequestURI() : " + request.getRequestURI());
         log.trace("request.getHeaderNames() : " + request.getHeaderNames());
-        request.getHeaderNames().asIterator().forEachRemaining(s -> log.trace(s));
+//        request.getHeaderNames().asIterator().forEachRemaining(s -> log.trace(s));
+        log.trace("chain : " + chain);
         log.trace("----------------------------------------------------------------");
         log.trace("response : " + response);
         final String requestTokenHeader = request.getHeader("Authorization");

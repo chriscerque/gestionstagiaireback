@@ -2,6 +2,7 @@ package net.ent.etrs.gestionstagiaire.config;
 
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.controllers.MyUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -92,7 +93,7 @@ public class WebSecurityConfig {
         log.trace("WebConfig / configure");
         // We don't need CSRF for this example
         httpSecurity.csrf().disable()
-                .addFilterBefore(jwtRequestFilter, AnonymousAuthenticationFilter.class)
+//                .addFilterBefore(jwtRequestFilter, AnonymousAuthenticationFilter.class)
                 // dont authenticate this particular request
                 .authorizeRequests().antMatchers("/api/auth/authenticate", "/api/auth/register").permitAll().
                 // all other requests need to be authenticated
