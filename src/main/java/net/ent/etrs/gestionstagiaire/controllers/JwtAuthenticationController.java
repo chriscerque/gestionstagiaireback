@@ -87,11 +87,11 @@ public class JwtAuthenticationController {
         } catch (UsernameNotFoundException | BadCredentialsException | LockedException | DisabledException |
                  SignatureException e) {
             log.trace(">>>>>>>>>>>>>>>>>>>>>ERR");
-            e.printStackTrace();
+//            e.printStackTrace();
 //			throw new Exception(e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e1) {
-            e1.printStackTrace();
+//            e1.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 //        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -115,10 +115,10 @@ public class JwtAuthenticationController {
             log.trace("JwtAuthenticationController / authenticate");
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
