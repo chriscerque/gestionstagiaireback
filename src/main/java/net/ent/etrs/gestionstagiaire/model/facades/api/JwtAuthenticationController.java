@@ -1,9 +1,9 @@
-package net.ent.etrs.gestionstagiaire.controllers;
+package net.ent.etrs.gestionstagiaire.model.facades.api;
 
 import io.jsonwebtoken.SignatureException;
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.controllers.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.entities.MyUserDetails;
+import net.ent.etrs.gestionstagiaire.model.facades.api.dto.UserDTO;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
 import net.ent.etrs.gestionstagiaire.security.jwt.JwtTokenUtil;
 import net.ent.etrs.gestionstagiaire.security.services.MyUserDetailService;

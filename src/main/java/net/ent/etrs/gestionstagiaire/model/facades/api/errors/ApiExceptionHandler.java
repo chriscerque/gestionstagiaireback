@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.model.facades.api;
+package net.ent.etrs.gestionstagiaire.model.facades.api.errors;
 
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.dao.DataIntegrityViolationException;

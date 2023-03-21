@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.controllers;
+package net.ent.etrs.gestionstagiaire.model.facades.api;
 
 
 import lombok.extern.apachecommons.CommonsLog;

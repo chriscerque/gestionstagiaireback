@@ -1,18 +1,19 @@
-package net.ent.etrs.gestionstagiaire.model.services;
+package net.ent.etrs.gestionstagiaire.model.facades.impl;
 
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
-import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
-import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
-import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeStage;
+import net.ent.etrs.gestionstagiaire.model.repo.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StageFacade extends AbstractFacade implements IStageFacade {
-    protected StageFacade(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo) {
-        super(stageRepo, stagiaireRepo, formateurRepo);
+public class FacadeStageImpl extends AbstractFacade implements FacadeStage {
+
+
+    protected FacadeStageImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
+        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
     }
 
     @Override

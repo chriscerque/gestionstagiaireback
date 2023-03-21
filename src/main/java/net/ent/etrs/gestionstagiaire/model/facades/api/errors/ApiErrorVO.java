@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.model.facades.api;
+package net.ent.etrs.gestionstagiaire.model.facades.api.errors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -14,5 +14,5 @@ public class ApiErrorVO {
     private String errorCode;
     private String message;
 
-    
+
 }

@@ -1,5 +1,6 @@
-package net.ent.etrs.gestionstagiaire.model.services;
+package net.ent.etrs.gestionstagiaire.model.facades.impl;
 
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeGrade;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -15,13 +16,13 @@ public class FacadeFactory {
 //        System.out.println("$$$$$$$>>>>> FacadeFactory/this : " + this);
     }
 
-    @Bean(name = "IGradeFacade")
+    @Bean(name = "GradeFacade")
     @Scope("singleton")
-    public static IGradeFacade getGradeFacade() {
+    public static FacadeGrade getGradeFacade() {
 //        System.out.println("$$$$$$$ FacadeFactory/getGradeFacade");
-        GradeFacade gradeFacade = new GradeFacade();
+        FacadeGrade facadeGrade = new FacadeGradeImpl();
 //        System.out.println("$$$$$$$>>>>> gradeFacade : " + gradeFacade);
-        return gradeFacade;
+        return facadeGrade;
     }
 
 //    @Bean(name = "IStagiaireFacade")

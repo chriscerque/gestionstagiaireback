@@ -2,18 +2,18 @@ package net.ent.etrs.gestionstagiaire;
 
 
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
-import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
 import net.ent.etrs.gestionstagiaire.model.entities.MyUserDetails;
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Grade;
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeStage;
+import net.ent.etrs.gestionstagiaire.model.facades.api.dto.DtoUtils;
+import net.ent.etrs.gestionstagiaire.model.facades.api.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
-import net.ent.etrs.gestionstagiaire.model.services.IStageFacade;
 import net.ent.etrs.gestionstagiaire.security.services.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +32,7 @@ public class MyRunner2 implements CommandLineRunner {
     //    @Autowired
 //    public StageRepo stageRepo;
     @Autowired
-    public IStageFacade iStageFacade;
+    public FacadeStage iFacadeStage;
     @Autowired
     public FormateurRepo formateurRepo;
     @Autowired
@@ -66,13 +66,13 @@ public class MyRunner2 implements CommandLineRunner {
 
 
             StagiaireDto stagiaireDto = new StagiaireDto();
-            stagiaireDto.nid = "0123456789";
-            stagiaireDto.nom = "0123456789";
-            stagiaireDto.prenom = "0123456789";
-            stagiaireDto.dateNaissance = LocalDate.now().minusYears(18);
-            stagiaireDto.matricule = "0337010562";
-            stagiaireDto.grade = Grade.SCH;
-            stagiaireDto.appartenance = Appartenance.AIR;
+            stagiaireDto.setNid("0123456789");
+            stagiaireDto.setNom("0123456789");
+            stagiaireDto.setPrenom("0123456789");
+            stagiaireDto.setDateNaissance(LocalDate.now().minusYears(18));
+            stagiaireDto.setMatricule("0337010562");
+            stagiaireDto.setGrade(Grade.SCH);
+            stagiaireDto.setAppartenance(Appartenance.AIR);
             stagiaireRepo.save(DtoUtils.stagiaireFromDto(stagiaireDto));
 
 
@@ -101,9 +101,9 @@ public class MyRunner2 implements CommandLineRunner {
             formateurRepo.save(formateur);
             stage.setCdsf(formateur);
 //            stageRepo.save(stage);
-            log.trace("recherche stage CG91" + iStageFacade.findByCodeStage("CG91"));
+            log.trace("recherche stage CG91" + iFacadeStage.findByCodeStage("CG91"));
 
-            iStageFacade.save(stage);
+            iFacadeStage.save(stage);
 
             Stage stage2 = new Stage();
             stage2.setCodeStage("GJ50");
@@ -117,9 +117,9 @@ public class MyRunner2 implements CommandLineRunner {
             formateurRepo.save(formateur2);
             stage2.setCdsf(formateur2);
 //            stageRepo.save(stage);
-            log.trace("recherche stage GJ50" + iStageFacade.findByCodeStage("GJ50"));
+            log.trace("recherche stage GJ50" + iFacadeStage.findByCodeStage("GJ50"));
 
-            iStageFacade.save(stage2);
+            iFacadeStage.save(stage2);
 
 
 //        stageRepo.saveAndFlush(stage);

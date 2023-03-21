@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.controllers.dto;
+package net.ent.etrs.gestionstagiaire.model.facades.api.dto;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package net.ent.etrs.gestionstagiaire.model.services;
+package net.ent.etrs.gestionstagiaire.model.facades;
 
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -7,7 +7,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
-public interface IStagiaireFacade {
+public interface FacadeStagiaire {
 
     Optional<Stagiaire> save(Stagiaire stagiaire) throws DataIntegrityViolationException, ConstraintViolationException;
 

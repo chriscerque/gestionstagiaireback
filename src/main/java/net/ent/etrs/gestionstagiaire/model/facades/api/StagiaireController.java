@@ -1,11 +1,11 @@
-package net.ent.etrs.gestionstagiaire.controllers;
+package net.ent.etrs.gestionstagiaire.model.facades.api;
 
 
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.controllers.dto.DtoUtils;
-import net.ent.etrs.gestionstagiaire.controllers.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
-import net.ent.etrs.gestionstagiaire.model.services.IStagiaireFacade;
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeStagiaire;
+import net.ent.etrs.gestionstagiaire.model.facades.api.dto.DtoUtils;
+import net.ent.etrs.gestionstagiaire.model.facades.api.dto.StagiaireDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +19,18 @@ import java.util.Optional;
 @CommonsLog(topic = "SOUT")
 public class StagiaireController {
 
-    private IStagiaireFacade stagiaireFacade;
+    private FacadeStagiaire facadeStagiaire;
 
-    public StagiaireController(IStagiaireFacade stagiaireFacade) {
+    public StagiaireController(FacadeStagiaire facadeStagiaire) {
 
-        this.stagiaireFacade = stagiaireFacade;
+        this.facadeStagiaire = facadeStagiaire;
     }
 
     @GetMapping(produces = "application/json;charset=utf-8", path = "/")
     public ResponseEntity<List<Stagiaire>> getStagiaire() {
 
         try {
-            return ResponseEntity.ok(stagiaireFacade.findAll());
+            return ResponseEntity.ok(facadeStagiaire.findAll());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -44,7 +44,7 @@ public class StagiaireController {
 
 
 //        try {
-        Optional<Stagiaire> oStagiaire = stagiaireFacade.save(DtoUtils.stagiaireFromDto(stagiaireDto));
+        Optional<Stagiaire> oStagiaire = facadeStagiaire.save(DtoUtils.stagiaireFromDto(stagiaireDto));
         if (oStagiaire.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
@@ -71,13 +71,13 @@ public class StagiaireController {
         log.trace("StagiaireController / upadte id : " + id);
 
 
-        if (!this.stagiaireFacade.exist(id)) {
+        if (!this.facadeStagiaire.exist(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         log.trace("StagiaireController / upadte 111");
         Stagiaire stagiaire = DtoUtils.stagiaireFromDto(stagiaireDto);
         log.trace("StagiaireController / upadte 222");
-        Stagiaire s = this.stagiaireFacade.save(stagiaire).orElseThrow();
+        Stagiaire s = this.facadeStagiaire.save(stagiaire).orElseThrow();
         log.trace("StagiaireController / upadte 333");
         return ResponseEntity.ok(DtoUtils.stagiaireToDto(s));
 
@@ -87,7 +87,7 @@ public class StagiaireController {
     @GetMapping(produces = "application/json; charset=UTF-8", path = "/{id}")
     public ResponseEntity<StagiaireDto> findById(@PathVariable("id") Long id) {
         try {
-            Optional<Stagiaire> oStagiaire = this.stagiaireFacade.findById(id);
+            Optional<Stagiaire> oStagiaire = this.facadeStagiaire.findById(id);
             if (oStagiaire.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }

@@ -1,10 +1,9 @@
-package net.ent.etrs.gestionstagiaire.model.services;
+package net.ent.etrs.gestionstagiaire.model.facades.impl;
 
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
-import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
-import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
-import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeStagiaire;
+import net.ent.etrs.gestionstagiaire.model.repo.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,11 @@ import java.util.Optional;
 
 @Service
 @CommonsLog(topic = "SOUT")
-public class StagiaireFacade extends AbstractFacade implements IStagiaireFacade {
+public class FacadeStagiaireImpl extends AbstractFacade implements FacadeStagiaire {
 
 
-    protected StagiaireFacade(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo) {
-        super(stageRepo, stagiaireRepo, formateurRepo);
+    protected FacadeStagiaireImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
+        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
     }
 
     @Override
