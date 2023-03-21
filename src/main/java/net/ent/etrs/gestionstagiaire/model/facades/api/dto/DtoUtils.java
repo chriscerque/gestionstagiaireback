@@ -3,17 +3,20 @@ package net.ent.etrs.gestionstagiaire.model.facades.api.dto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
-import net.ent.etrs.gestionstagiaire.model.entities.Evaluation;
-import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
-import net.ent.etrs.gestionstagiaire.model.entities.Note;
-import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
+import net.ent.etrs.gestionstagiaire.model.entities.*;
+import net.ent.etrs.gestionstagiaire.model.facades.FacaceIngenierieFormation;
 import net.ent.etrs.gestionstagiaire.model.facades.FacaceNote;
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeFormateur;
+import net.ent.etrs.gestionstagiaire.model.facades.exceptions.BusinessException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @CommonsLog(topic = "SOUT")
 public final class DtoUtils {
 
     private static FacaceNote facaceNote;
+    private static FacadeFormateur facadeFormateur;
+
+    private static FacaceIngenierieFormation facadeIngenierieFormation;
 
 
     public static StagiaireDto stagiaireToDto(Stagiaire stagiaire) {
@@ -54,6 +57,29 @@ public final class DtoUtils {
         return stagiaire;
     }
 
+    public static StageDto stageToDto(Stage stage) {
+        return StageDto.builder()
+                .id(stage.getId())
+                .codeStage(stage.getCodeStage())
+                .dateDebut(stage.getDateDebut())
+                .dateFin(stage.getDateFin())
+                .cdsfId(stage.getCdsf().getId())
+                .ingenierieFormationId(stage.getIngenierieFormation().getId())
+                .build();
+    }
+
+    public static Stage stageFromDto(StageDto stageDto) throws BusinessException {
+        Stage stage = new Stage();
+        //TODO pas fini
+        stage.setId(stageDto.getId());
+        stage.setCodeStage(stageDto.getCodeStage());
+        stage.setDateDebut(stageDto.getDateDebut());
+        stage.setDateFin(stageDto.getDateFin());
+        stage.setCdsf(facadeFormateur.findById(stageDto.getCdsfId()).orElseThrow(BusinessException::new));
+        stage.setIngenierieFormation(facadeIngenierieFormation.findById(stageDto.getIngenierieFormationId()).orElseThrow(BusinessException::new));
+        return stage;
+    }
+
     public static NoteDto noteToDto(Note note) {
         NoteDto noteDto = new NoteDto();
         noteDto.setDateNote(note.getDateNote());
@@ -69,28 +95,28 @@ public final class DtoUtils {
         return note;
     }
 
-    private static FormateurDto formateurToDto(Formateur formateur) {
+    public static FormateurDto formateurToDto(Formateur formateur) {
         FormateurDto formateurDto = new FormateurDto();
         //TODO pas fini
 
         return formateurDto;
     }
 
-    private static Formateur formateurFromDto(FormateurDto formateurDto) {
+    public static Formateur formateurFromDto(FormateurDto formateurDto) {
         Formateur formateur = new Formateur();
         //TODO pas fini
 
         return formateur;
     }
 
-    private static EvaluationDto evaluationToDto(Evaluation evaluation) {
+    public static EvaluationDto evaluationToDto(Evaluation evaluation) {
         EvaluationDto evaluationDto = new EvaluationDto();
         //TODO pas fini
 
         return evaluationDto;
     }
 
-    private static Evaluation evaluationFromDto(EvaluationDto evaluationDto) {
+    public static Evaluation evaluationFromDto(EvaluationDto evaluationDto) {
         Evaluation evaluation = new Evaluation();
         //TODO pas fini
 
