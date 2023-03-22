@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional
 @Repository
-public interface StageRepo extends JpaRepository<Stage,Long> {
+public interface StageRepo extends JpaRepository<Stage, Long> {
 
-    Stage findByCodeStage(String codeStage);
+    Optional<Stage> findByCodeStage(String codeStage);
 
 }

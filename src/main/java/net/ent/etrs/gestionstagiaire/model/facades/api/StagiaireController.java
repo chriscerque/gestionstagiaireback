@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/stagiaires")
@@ -27,10 +28,10 @@ public class StagiaireController {
     }
 
     @GetMapping(produces = "application/json;charset=utf-8", path = "/")
-    public ResponseEntity<List<Stagiaire>> getStagiaire() {
+    public ResponseEntity<List<StagiaireDto>> getStagiaire() {
 
         try {
-            return ResponseEntity.ok(facadeStagiaire.findAll());
+            return ResponseEntity.ok(facadeStagiaire.findAll().stream().map(s -> DtoUtils.stagiaireToDto(s)).collect(Collectors.toList()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }

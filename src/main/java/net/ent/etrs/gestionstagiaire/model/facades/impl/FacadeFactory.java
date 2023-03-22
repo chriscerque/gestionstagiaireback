@@ -25,6 +25,34 @@ public class FacadeFactory {
         return facadeGrade;
     }
 
+    //    @Bean(name = "FacadeFormateur")
+//    @Bean
+//    @Scope("singleton")
+//    public static FacadeFormateur getFacadeFormateur() {
+////        System.out.println("$$$$$$$ FacadeFactory/getGradeFacade");
+//        FacadeFormateur facadeFormateur = new FacadeFormateurImpl();
+////        System.out.println("$$$$$$$>>>>> gradeFacade : " + gradeFacade);
+//        return facadeFormateur;
+//    }
+//
+//    @Bean
+//    @Scope("singleton")
+//    public static FacaceNote getFacadeNote() {
+////        System.out.println("$$$$$$$ FacadeFactory/getGradeFacade");
+//        FacaceNote facaceNote = new FacadeNoteImpl();
+////        System.out.println("$$$$$$$>>>>> gradeFacade : " + gradeFacade);
+//        return facaceNote;
+//    }
+//
+//    @Bean
+//    @Scope("singleton")
+//    public static FacadeIngenierieFormation getFacaceIngenierieFormation() {
+////        System.out.println("$$$$$$$ FacadeFactory/getGradeFacade");
+//        FacadeIngenierieFormation facadeIngenierieFormation = new FacadeIngenierieFormationImpl();
+////        System.out.println("$$$$$$$>>>>> gradeFacade : " + gradeFacade);
+//        return facadeIngenierieFormation;
+//    }
+
 //    @Bean(name = "IStagiaireFacade")
 //    @Scope("singleton")
 //    public static IStagiaireFacade getStagaireFacade(){

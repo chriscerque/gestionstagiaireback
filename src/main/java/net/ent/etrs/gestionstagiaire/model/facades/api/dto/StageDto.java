@@ -14,9 +14,7 @@ import java.time.LocalDate;
 public class StageDto extends AbstractEntity {
 
     private Long id;
-
-    private Long ingenierieFormationId;
-
+    
     private String codeStage;
 
     private LocalDate dateDebut;
@@ -24,6 +22,8 @@ public class StageDto extends AbstractEntity {
     private LocalDate dateFin;
 
     private Long cdsfId;
+
+    private Long ingenierieFormationId;
 
 
 }

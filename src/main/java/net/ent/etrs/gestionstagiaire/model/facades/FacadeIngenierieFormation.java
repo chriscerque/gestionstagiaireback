@@ -7,7 +7,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
-public interface FacaceIngenierieFormation {
+public interface FacadeIngenierieFormation {
 
     Optional<IngenierieFormation> save(IngenierieFormation ingenierieFormation) throws DataIntegrityViolationException, ConstraintViolationException;
 

@@ -3,7 +3,6 @@ package net.ent.etrs.gestionstagiaire.model.facades.impl;
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestionstagiaire.model.facades.FacadeStagiaire;
-import net.ent.etrs.gestionstagiaire.model.repo.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,9 @@ import java.util.Optional;
 public class FacadeStagiaireImpl extends AbstractFacade implements FacadeStagiaire {
 
 
-    protected FacadeStagiaireImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
-        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
-    }
+//    protected FacadeStagiaireImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
+//        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
+//    }
 
     @Override
     public Optional<Stagiaire> save(Stagiaire stagiaire) throws DataIntegrityViolationException, ConstraintViolationException {

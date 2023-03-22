@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface FacadeStage {
 
-    Stage save(Stage stage);
+    Optional<Stage> save(Stage stage);
 
     void delete(Stage stage);
 
@@ -16,5 +16,9 @@ public interface FacadeStage {
 
     List<Stage> findAll();
 
-    Stage findByCodeStage(String codeStage);
+    Optional<Stage> findById(Long id);
+
+    Optional<Stage> findByCodeStage(String codeStage);
+
+    boolean exist(Long id);
 }

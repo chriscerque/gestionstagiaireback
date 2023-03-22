@@ -4,20 +4,31 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.*;
-import net.ent.etrs.gestionstagiaire.model.facades.FacaceIngenierieFormation;
 import net.ent.etrs.gestionstagiaire.model.facades.FacaceNote;
 import net.ent.etrs.gestionstagiaire.model.facades.FacadeFormateur;
+import net.ent.etrs.gestionstagiaire.model.facades.FacadeIngenierieFormation;
 import net.ent.etrs.gestionstagiaire.model.facades.exceptions.BusinessException;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
+
+@Service
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @CommonsLog(topic = "SOUT")
 public final class DtoUtils {
 
+
     private static FacaceNote facaceNote;
     private static FacadeFormateur facadeFormateur;
-
-    private static FacaceIngenierieFormation facadeIngenierieFormation;
-
+    private static FacadeIngenierieFormation facadeIngenierieFormation;
+    @Resource
+    private FacaceNote vFacaceNote;
+    @Resource
+    private FacadeIngenierieFormation vFacadeIngenierieFormation;
+    @Resource
+    private FacadeFormateur vFacadeFormateur;
 
     public static StagiaireDto stagiaireToDto(Stagiaire stagiaire) {
         return StagiaireDto.builder()
@@ -36,6 +47,12 @@ public final class DtoUtils {
                 .build();
 
     }
+
+//    static {
+//        facaceNote = FacadeFactory.getFacadeNote();
+//        facadeFormateur = FacadeFactory.getFacadeFormateur();
+//        facadeIngenierieFormation = FacadeFactory.getFacaceIngenierieFormation();
+//    }
 
     public static Stagiaire stagiaireFromDto(StagiaireDto stagiaireDto) {
         Stagiaire stagiaire = new Stagiaire();
@@ -63,8 +80,8 @@ public final class DtoUtils {
                 .codeStage(stage.getCodeStage())
                 .dateDebut(stage.getDateDebut())
                 .dateFin(stage.getDateFin())
-                .cdsfId(stage.getCdsf().getId())
-                .ingenierieFormationId(stage.getIngenierieFormation().getId())
+                .cdsfId(stage.getCdsf() == null ? null : stage.getCdsf().getId())
+                .ingenierieFormationId(stage.getIngenierieFormation() == null ? null : stage.getIngenierieFormation().getId())
                 .build();
     }
 
@@ -121,6 +138,13 @@ public final class DtoUtils {
         //TODO pas fini
 
         return evaluation;
+    }
+
+    @PostConstruct
+    public void init() {
+        facadeFormateur = vFacadeFormateur;
+        facaceNote = vFacaceNote;
+        facadeIngenierieFormation = vFacadeIngenierieFormation;
     }
 
 }

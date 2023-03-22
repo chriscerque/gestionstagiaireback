@@ -1,0 +1,26 @@
+DtoStage
+{
+        "id": 1,
+        "codeStage": "CG91",
+        "dateDebut": "2023-03-21",
+        "dateFin": "2023-04-21",
+        "cdsfId": 1,
+        "ingenierieFormationId": null
+    }
+
+DtoStagiaire
+{
+        "id": 1,
+        "nom": "0123456789",
+        "prenom": "0123456789",
+        "grade": "SCH",
+        "appartenance": "AIR",
+        "dateNaissance": "2005-03-22",
+        "matricule": "0337010562",
+        "nid": "0123456789",
+        "numBatiment": null,
+        "numChambre": null,
+        "numBadgeMess": null,
+        "numBadgeAcces": null
+    }
+	
