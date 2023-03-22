@@ -4,13 +4,13 @@ import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
 import net.ent.etrs.gestionstagiaire.model.facades.FacadeFormateur;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 @CommonsLog(topic = "SOUT")
 public class FacadeFormateurImpl extends AbstractFacade implements FacadeFormateur {
 

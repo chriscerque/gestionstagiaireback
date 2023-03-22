@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "MY_USER")
+@Table(name = "MY_USER", uniqueConstraints = @UniqueConstraint(name = "UK__MY_USER__USER_NAME", columnNames = "USER_NAME"))
 @NoArgsConstructor
 @Data
 @Builder
@@ -33,7 +33,7 @@ public class MyUserDetails extends AbstractEntity implements UserDetails {
 
     @Getter
     @Setter
-    @Column(name = "USER_NAME", unique = true)
+    @Column(name = "USER_NAME")
     private String username;
 
     @Getter
@@ -58,7 +58,7 @@ public class MyUserDetails extends AbstractEntity implements UserDetails {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(
             name = "USER_ROLES",
-            joinColumns = @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "user_role__user_id__fk"))
+            joinColumns = @JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "FK__ROLE__USER_ID"))
     )
 //    @Column(name = "ROLE")
     @Getter

@@ -60,13 +60,13 @@ public class StageController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } catch (ConstraintViolationException e) {
-            System.out.println("StagiaireController create failed ConstraintViolationException : " + e.getMessage());
+            System.out.println("StageController create failed ConstraintViolationException : " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         } catch (
                 DataIntegrityViolationException e) {
-            System.out.println("StagiaireController create failed DataIntegrityViolationException : " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            System.out.println("StageController create failed DataIntegrityViolationException : " + e.getMessage());
+//            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

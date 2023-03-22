@@ -21,4 +21,6 @@ public interface FacadeIngenierieFormation {
 
 
     boolean exist(Long id);
+
+    Long count();
 }

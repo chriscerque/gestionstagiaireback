@@ -59,5 +59,10 @@ public class FacadeIngenierieFormationImpl extends AbstractFacade implements Fac
         return super.ingenierieFormationRepo.existsById(id);
     }
 
+    @Override
+    public Long count() {
+        return super.ingenierieFormationRepo.count();
+    }
+
 
 }

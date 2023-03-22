@@ -21,4 +21,6 @@ public interface FacadeStage {
     Optional<Stage> findByCodeStage(String codeStage);
 
     boolean exist(Long id);
+
+    Long count();
 }

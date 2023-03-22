@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "STAGIAIRE", uniqueConstraints = @UniqueConstraint(name = "STAGIAIRE_NID_UK", columnNames = "NID"))
+@Table(name = "STAGIAIRE", uniqueConstraints = @UniqueConstraint(name = "UK__STAGIAIRE__NID", columnNames = "NID"))
 @EqualsAndHashCode(callSuper = false, of = "nid")
 @ToString(callSuper = true, exclude = "noteList")
 public class Stagiaire extends AbstractEntity {
@@ -92,7 +92,7 @@ public class Stagiaire extends AbstractEntity {
     @Column(name = "NUM_BADGE_ACCES")
     private Integer numBadgeAcces;
     @OneToMany
-    @JoinColumn(name = "STAGIAIRE_ID", foreignKey = @ForeignKey(name = "FK_NOTE_STAGIAIRE_ID"))
+    @JoinColumn(name = "STAGIAIRE_ID", foreignKey = @ForeignKey(name = "FK__NOTE__STAGIAIRE_ID"))
     private Set<Note> noteList = new HashSet<>();
 
     public Set<Note> getNoteList() {

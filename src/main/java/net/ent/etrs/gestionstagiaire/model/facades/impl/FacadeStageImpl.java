@@ -58,4 +58,9 @@ public class FacadeStageImpl extends AbstractFacade implements FacadeStage {
     public boolean exist(Long id) {
         return super.stageRepo.existsById(id);
     }
+
+    @Override
+    public Long count() {
+        return super.stageRepo.count();
+    }
 }
