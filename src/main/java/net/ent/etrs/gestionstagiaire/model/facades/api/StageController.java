@@ -7,10 +7,12 @@ import net.ent.etrs.gestionstagiaire.model.facades.FacadeStage;
 import net.ent.etrs.gestionstagiaire.model.facades.api.dto.DtoUtils;
 import net.ent.etrs.gestionstagiaire.model.facades.api.dto.StageDto;
 import net.ent.etrs.gestionstagiaire.model.facades.exceptions.BusinessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -54,21 +56,21 @@ public class StageController {
 
             }
             return ResponseEntity.ok(DtoUtils.stageToDto(oStage.get()));
-        } catch (Exception | BusinessException e) {
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (ConstraintViolationException e) {
+            System.out.println("StagiaireController create failed ConstraintViolationException : " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        } catch (
+                DataIntegrityViolationException e) {
+            System.out.println("StagiaireController create failed DataIntegrityViolationException : " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-//        } catch (ConstraintViolationException e) {
-//            System.out.println("StagiaireController create failed ConstraintViolationException : " + e.getMessage());
-//            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-//        } catch (DataIntegrityViolationException e) {
-//            System.out.println("StagiaireController create failed DataIntegrityViolationException : " + e.getMessage());
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
     }
 
     @PutMapping(path = "/{id}", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")
@@ -89,7 +91,19 @@ public class StageController {
             Stage s = this.facadeStage.save(stage).orElseThrow();
             log.trace("StagiaireController / upadte 333");
             return ResponseEntity.ok(DtoUtils.stageToDto(s));
-        } catch (Exception | BusinessException e) {
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (ConstraintViolationException e) {
+            System.out.println("StagiaireController create failed ConstraintViolationException : " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        } catch (
+                DataIntegrityViolationException e) {
+            System.out.println("StagiaireController create failed DataIntegrityViolationException : " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
