@@ -1,6 +1,8 @@
 package net.ent.etrs.gestionstagiaire.model.services;
 
+import net.ent.etrs.gestionstagiaire.controller.dto.StageDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
+import net.ent.etrs.gestionstagiaire.model.services.exceptions.BusinessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,19 +10,21 @@ import java.util.Optional;
 
 public interface ServiceStage {
 
-    Optional<Stage> save(Stage stage);
+    Optional<StageDto> save(StageDto stageDto);
 
-    void delete(Stage stage);
+    void delete(StageDto stageDto) throws BusinessException;
 
-    Optional<Stage> findByCodeStage(Long id);
+    List<StageDto> findAll();
 
-    List<Stage> findAll();
+    Optional<StageDto> findById(Long id) throws BusinessException;
 
-    Optional<Stage> findById(Long id);
-
-    Optional<Stage> findByCodeStage(String codeStage);
+    Optional<StageDto> findByCodeStage(String codeStage) throws BusinessException;
 
     boolean exist(Long id);
 
     Long count();
+
+    StageDto toDto(Stage stage);
+
+    Stage fromDto(StageDto stageDto) throws BusinessException;
 }

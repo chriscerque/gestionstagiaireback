@@ -44,6 +44,9 @@ public class MyRunner2 implements CommandLineRunner {
 //    private StagiaireRepo stagiaireRepo;
     @NonNull
     private ServiceStagiaire serviceStagiaire;
+
+    @NonNull
+    private ServiceStage serviceStage;
     @NonNull
     private MyUserDetailService userDetailsService;
 
@@ -120,9 +123,10 @@ public class MyRunner2 implements CommandLineRunner {
                 stage.setCdsf(formateur);
                 stage.setIngenierieFormation(serviceIngenierieFormation.findById(1L).get());
 //            stageRepo.save(stage);
-                log.trace("recherche stage CG91" + iServiceStage.findByCodeStage("CG91"));
 
-                iServiceStage.save(stage);
+                iServiceStage.save(serviceStage.toDto(stage));
+
+                log.trace("recherche stage CG91" + iServiceStage.findByCodeStage("CG91"));
 
                 Stage stage2 = new Stage();
                 stage2.setCodeStage("GJ50");
@@ -137,9 +141,9 @@ public class MyRunner2 implements CommandLineRunner {
                 stage2.setCdsf(formateur2);
                 stage2.setIngenierieFormation(serviceIngenierieFormation.findById(1L).get());
 //            stageRepo.save(stage);
-                log.trace("recherche stage GJ50" + iServiceStage.findByCodeStage("GJ50"));
 
-                iServiceStage.save(stage2);
+                iServiceStage.save(serviceStage.toDto(stage2));
+                log.trace("recherche stage GJ50" + iServiceStage.findByCodeStage("GJ50"));
 
             }
 //        stageRepo.saveAndFlush(stage);

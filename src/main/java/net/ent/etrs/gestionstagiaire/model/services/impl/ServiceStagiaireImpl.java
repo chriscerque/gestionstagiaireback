@@ -65,7 +65,7 @@ public class ServiceStagiaireImpl implements ServiceStagiaire {
 
     @Override
     public Optional<StagiaireDto> findByNomPrenom(String nom, String prenom) throws BusinessException {
-        return Optional.of(this.toDto(this.stagiaireRepo.findStagiaireByNomAndPrenom(nom, prenom).orElseThrow(BusinessException::new)));
+        return Optional.ofNullable(this.toDto(this.stagiaireRepo.findStagiaireByNomAndPrenom(nom, prenom).orElse(null)));
     }
 
     @Override

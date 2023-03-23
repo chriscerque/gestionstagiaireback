@@ -6,11 +6,9 @@ import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Evaluation;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
 import net.ent.etrs.gestionstagiaire.model.entities.Note;
-import net.ent.etrs.gestionstagiaire.model.entities.Stage;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceFormateur;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceIngenierieFormation;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceNote;
-import net.ent.etrs.gestionstagiaire.model.services.exceptions.BusinessException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -40,29 +38,6 @@ public final class DtoUtils {
 //        facadeIngenierieFormation = FacadeFactory.getFacaceIngenierieFormation();
 //    }
 
-
-    public static StageDto stageToDto(Stage stage) {
-        return StageDto.builder()
-                .id(stage.getId())
-                .codeStage(stage.getCodeStage())
-                .dateDebut(stage.getDateDebut())
-                .dateFin(stage.getDateFin())
-                .cdsfId(stage.getCdsf() == null ? null : stage.getCdsf().getId())
-                .ingenierieFormationId(stage.getIngenierieFormation() == null ? null : stage.getIngenierieFormation().getId())
-                .build();
-    }
-
-    public static Stage stageFromDto(StageDto stageDto) throws BusinessException {
-        Stage stage = new Stage();
-        //TODO pas fini
-        stage.setId(stageDto.getId());
-        stage.setCodeStage(stageDto.getCodeStage());
-        stage.setDateDebut(stageDto.getDateDebut());
-        stage.setDateFin(stageDto.getDateFin());
-        stage.setCdsf(serviceFormateur.findById(stageDto.getCdsfId()).orElseThrow(BusinessException::new));
-        stage.setIngenierieFormation(serviceIngenierieFormation.findById(stageDto.getIngenierieFormationId()).orElseThrow(BusinessException::new));
-        return stage;
-    }
 
     public static NoteDto noteToDto(Note note) {
         NoteDto noteDto = new NoteDto();

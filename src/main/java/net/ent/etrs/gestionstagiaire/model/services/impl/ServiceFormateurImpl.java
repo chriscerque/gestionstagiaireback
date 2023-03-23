@@ -65,9 +65,9 @@ public class ServiceFormateurImpl implements ServiceFormateur {
 
     @Override
     public Optional<Formateur> findById(Long id) {
-        //TODO sout
-        System.out.println("id : " + id);
-        System.out.println("this.formateurRepo.findById(id) : " + this.formateurRepo.findById(id));
+//        //TODO sout
+//        System.out.println("id : " + id);
+//        System.out.println("this.formateurRepo.findById(id) : " + this.formateurRepo.findById(id));
         return this.formateurRepo.findById(id);
     }
 
