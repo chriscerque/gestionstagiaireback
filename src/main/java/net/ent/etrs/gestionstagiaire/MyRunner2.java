@@ -1,20 +1,21 @@
 package net.ent.etrs.gestionstagiaire;
 
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
+import net.ent.etrs.gestionstagiaire.controller.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.*;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Appartenance;
 import net.ent.etrs.gestionstagiaire.model.entities.references.Grade;
 import net.ent.etrs.gestionstagiaire.model.entities.references.TypeIF;
-import net.ent.etrs.gestionstagiaire.model.facades.FacadeIngenierieFormation;
-import net.ent.etrs.gestionstagiaire.model.facades.FacadeStage;
-import net.ent.etrs.gestionstagiaire.model.facades.api.dto.DtoUtils;
-import net.ent.etrs.gestionstagiaire.model.facades.api.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
-import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.repo.UserRepo;
+import net.ent.etrs.gestionstagiaire.model.services.ServiceIngenierieFormation;
+import net.ent.etrs.gestionstagiaire.model.services.ServiceStage;
+import net.ent.etrs.gestionstagiaire.model.services.ServiceStagiaire;
+import net.ent.etrs.gestionstagiaire.model.services.exceptions.BusinessException;
 import net.ent.etrs.gestionstagiaire.security.services.MyUserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.Authentication;
@@ -25,25 +26,28 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
+@RequiredArgsConstructor
 @CommonsLog(topic = "SOUT")
 public class MyRunner2 implements CommandLineRunner {
 
     //    @Autowired
 //    public StageRepo stageRepo;
-    @Autowired
-    public FacadeStage iFacadeStage;
-    @Autowired
+    @NonNull
+    public ServiceStage iServiceStage;
+    @NonNull
     public FormateurRepo formateurRepo;
-    @Autowired
-    public FacadeIngenierieFormation facadeIngenierieFormation;
-    @Autowired
+    @NonNull
+    public ServiceIngenierieFormation serviceIngenierieFormation;
+    @NonNull
     private UserRepo userRepo;
-    @Autowired
-    private StagiaireRepo stagiaireRepo;
-    @Autowired
+    //    @Autowired
+//    private StagiaireRepo stagiaireRepo;
+    @NonNull
+    private ServiceStagiaire serviceStagiaire;
+    @NonNull
     private MyUserDetailService userDetailsService;
 
-    @Autowired
+    @NonNull
     private PasswordEncoder encoder;
 
 
@@ -67,16 +71,16 @@ public class MyRunner2 implements CommandLineRunner {
                 userRepo.save(MyUserDetails.builder().username("ADMIN4").password(encoder.encode("ADMIN4")).accountNonExpired(false).accountNonLocked(true).credentialsNonExpired(false).enabled(true).build());
             }
 
-            if (facadeIngenierieFormation.count() == 0) {
+            if (serviceIngenierieFormation.count() == 0) {
                 IngenierieFormation ingenierieFormation = new IngenierieFormation();
                 ingenierieFormation.setLibelle("PDI 3.a");
                 ingenierieFormation.setDateDebut(LocalDate.of(2020, 01, 01));
                 ingenierieFormation.setDateFin(LocalDate.of(2025, 12, 31));
                 ingenierieFormation.setTypeIF(TypeIF.FS1);
-                facadeIngenierieFormation.save(ingenierieFormation);
+                serviceIngenierieFormation.save(ingenierieFormation);
             }
 
-            if (stagiaireRepo.count() == 0) {
+            if (serviceStagiaire.count() == 0) {
                 StagiaireDto stagiaireDto = new StagiaireDto();
                 stagiaireDto.setNid("0123456789");
                 stagiaireDto.setNom("0123456789");
@@ -85,7 +89,7 @@ public class MyRunner2 implements CommandLineRunner {
                 stagiaireDto.setMatricule("0337010562");
                 stagiaireDto.setGrade(Grade.SCH);
                 stagiaireDto.setAppartenance(Appartenance.AIR);
-                stagiaireRepo.save(DtoUtils.stagiaireFromDto(stagiaireDto));
+                serviceStagiaire.save(stagiaireDto);
 
 
                 log.trace(">>>>>>>>>>>>>>>>>>>runner 1");
@@ -98,48 +102,48 @@ public class MyRunner2 implements CommandLineRunner {
                 log.trace(">>>>>>>>>>>>>>>>>>>runner 2");
 //            titi();
                 log.trace(">>>>>>>>>>>>>>>>>>>runner 3");
-                stagiaireRepo.save(stagiaire);
+                serviceStagiaire.save(serviceStagiaire.toDto(stagiaire));
             }
             log.trace(">>>>>>>>>>>>>>>>>>>runner 4");
-            if (iFacadeStage.count() == 0) {
+            if (iServiceStage.count() == 0) {
                 Stage stage = new Stage();
 
                 stage.setCodeStage("CG91");
                 stage.setDateDebut(LocalDate.now().minusDays(1));
                 stage.setDateFin(LocalDate.now().plusDays(30));
-                stage.addStagiaire(stagiaireRepo.findStagiaireByNid("5643217891").get());
+                stage.addStagiaire(serviceStagiaire.fromDto(serviceStagiaire.findStagiaireByNid("5643217891").get()));
                 Formateur formateur = new Formateur();
                 formateur.setNom("TOTO");
                 formateur.setPrenom("toto p");
                 formateur.setGrade(Grade.ADJ);
                 formateurRepo.save(formateur);
                 stage.setCdsf(formateur);
-                stage.setIngenierieFormation(facadeIngenierieFormation.findById(1L).get());
+                stage.setIngenierieFormation(serviceIngenierieFormation.findById(1L).get());
 //            stageRepo.save(stage);
-                log.trace("recherche stage CG91" + iFacadeStage.findByCodeStage("CG91"));
+                log.trace("recherche stage CG91" + iServiceStage.findByCodeStage("CG91"));
 
-                iFacadeStage.save(stage);
+                iServiceStage.save(stage);
 
                 Stage stage2 = new Stage();
                 stage2.setCodeStage("GJ50");
                 stage2.setDateDebut(LocalDate.now().minusDays(1));
                 stage2.setDateFin(LocalDate.now().plusDays(30));
-                stage2.addStagiaire(stagiaireRepo.findStagiaireByNid("5643217891").get());
+                stage2.addStagiaire(serviceStagiaire.fromDto(serviceStagiaire.findStagiaireByNid("5643217891").get()));
                 Formateur formateur2 = new Formateur();
                 formateur2.setNom("TOTO2");
                 formateur2.setPrenom("toto2 p");
                 formateur2.setGrade(Grade.MAJ);
                 formateurRepo.save(formateur2);
                 stage2.setCdsf(formateur2);
-                stage2.setIngenierieFormation(facadeIngenierieFormation.findById(1L).get());
+                stage2.setIngenierieFormation(serviceIngenierieFormation.findById(1L).get());
 //            stageRepo.save(stage);
-                log.trace("recherche stage GJ50" + iFacadeStage.findByCodeStage("GJ50"));
+                log.trace("recherche stage GJ50" + iServiceStage.findByCodeStage("GJ50"));
 
-                iFacadeStage.save(stage2);
+                iServiceStage.save(stage2);
 
             }
 //        stageRepo.saveAndFlush(stage);
-        } catch (Exception e) {
+        } catch (Exception | BusinessException e) {
             e.printStackTrace();
             log.trace(e.getMessage());
         }
