@@ -1,8 +1,11 @@
 package net.ent.etrs.gestionstagiaire.model.services.impl;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.controller.dto.StagiaireDto;
 import net.ent.etrs.gestionstagiaire.model.entities.Stagiaire;
+import net.ent.etrs.gestionstagiaire.model.repo.StagiaireRepo;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceStagiaire;
 import net.ent.etrs.gestionstagiaire.model.services.exceptions.BusinessException;
 import org.springframework.beans.BeanUtils;
@@ -17,12 +20,10 @@ import java.util.stream.Collectors;
 
 @Service
 @CommonsLog(topic = "SOUT")
-public class ServiceStagiaireImpl extends AbstractService implements ServiceStagiaire {
-
-
-//    protected FacadeStagiaireImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
-//        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
-//    }
+@RequiredArgsConstructor
+public class ServiceStagiaireImpl implements ServiceStagiaire {
+    @NonNull
+    private StagiaireRepo stagiaireRepo;
 
     public Stagiaire fromDto(StagiaireDto stagiaireDto) {
         Stagiaire stagiaire = new Stagiaire();
@@ -59,7 +60,7 @@ public class ServiceStagiaireImpl extends AbstractService implements ServiceStag
 
     @Override
     public List<StagiaireDto> findAll() {
-        return super.stagiaireRepo.findAll().stream().map(this::toDto).collect(Collectors.toList());
+        return this.stagiaireRepo.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -69,7 +70,7 @@ public class ServiceStagiaireImpl extends AbstractService implements ServiceStag
 
     @Override
     public boolean exist(Long id) {
-        return super.stagiaireRepo.existsById(id);
+        return this.stagiaireRepo.existsById(id);
     }
 
     @Override

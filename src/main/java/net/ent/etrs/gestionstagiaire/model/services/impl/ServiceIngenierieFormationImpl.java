@@ -1,7 +1,10 @@
 package net.ent.etrs.gestionstagiaire.model.services.impl;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.IngenierieFormation;
+import net.ent.etrs.gestionstagiaire.model.repo.IngenierieFormationRepo;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceIngenierieFormation;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -12,11 +15,10 @@ import java.util.Optional;
 
 @Service
 @CommonsLog(topic = "SOUT")
-public class ServiceIngenierieFormationImpl extends AbstractService implements ServiceIngenierieFormation {
-
-//    protected FacadeIngenierieFormationImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
-//        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
-//    }
+@RequiredArgsConstructor
+public class ServiceIngenierieFormationImpl implements ServiceIngenierieFormation {
+    @NonNull
+    private IngenierieFormationRepo ingenierieFormationRepo;
 
 
     @Override
@@ -46,7 +48,7 @@ public class ServiceIngenierieFormationImpl extends AbstractService implements S
 
     @Override
     public List<IngenierieFormation> findAll() {
-        return super.ingenierieFormationRepo.findAll();
+        return this.ingenierieFormationRepo.findAll();
     }
 
     @Override
@@ -56,12 +58,12 @@ public class ServiceIngenierieFormationImpl extends AbstractService implements S
 
     @Override
     public boolean exist(Long id) {
-        return super.ingenierieFormationRepo.existsById(id);
+        return this.ingenierieFormationRepo.existsById(id);
     }
 
     @Override
     public Long count() {
-        return super.ingenierieFormationRepo.count();
+        return this.ingenierieFormationRepo.count();
     }
 
 

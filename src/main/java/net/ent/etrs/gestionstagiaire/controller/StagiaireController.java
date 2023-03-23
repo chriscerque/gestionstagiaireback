@@ -64,20 +64,20 @@ public class StagiaireController {
 
     @PutMapping(path = "/{id}", produces = "application/json;charset=utf-8", consumes = "application/json;charset=utf-8")
     public ResponseEntity<StagiaireDto> upadte(@PathVariable("id") Long id, @RequestBody @Valid StagiaireDto stagiaireDto) {
-        try {
-            log.trace("StagiaireController / setStagiaire");
-            log.trace("stagiaire : " + stagiaireDto);
+//        try {
+        log.trace("StagiaireController / setStagiaire");
+        log.trace("stagiaire : " + stagiaireDto);
 
-            log.trace("StagiaireController / upadte id : " + id);
+        log.trace("StagiaireController / upadte id : " + id);
 
 
-            if (!this.serviceStagiaire.exist(id)) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            log.trace("StagiaireController / upadte 111");
-            StagiaireDto s = this.serviceStagiaire.save(stagiaireDto).orElseThrow();
-            log.trace("StagiaireController / upadte 222");
-            return ResponseEntity.ok(s);
+        if (!this.serviceStagiaire.exist(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        log.trace("StagiaireController / upadte 111");
+        StagiaireDto s = this.serviceStagiaire.save(stagiaireDto).orElseThrow();
+        log.trace("StagiaireController / upadte 222");
+        return ResponseEntity.ok(s);
 
 //        } catch (BusinessException e) {
 //            e.printStackTrace();
@@ -90,10 +90,10 @@ public class StagiaireController {
 //            System.out.println("StagiaireController create failed DataIntegrityViolationException : " + e.getMessage());
 //            e.printStackTrace();
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
 
     }
 

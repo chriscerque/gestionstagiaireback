@@ -1,7 +1,10 @@
 package net.ent.etrs.gestionstagiaire.model.services.impl;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Formateur;
+import net.ent.etrs.gestionstagiaire.model.repo.FormateurRepo;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceFormateur;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -12,12 +15,10 @@ import java.util.Optional;
 
 @Component
 @CommonsLog(topic = "SOUT")
-public class ServiceFormateurImpl extends AbstractService implements ServiceFormateur {
-
-
-//    protected FacadeFormateurImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
-//        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
-//    }
+@RequiredArgsConstructor
+public class ServiceFormateurImpl implements ServiceFormateur {
+    @NonNull
+    private FormateurRepo formateurRepo;
 
 
     @Override
@@ -72,7 +73,7 @@ public class ServiceFormateurImpl extends AbstractService implements ServiceForm
 
     @Override
     public List<Formateur> findAll() {
-        return super.formateurRepo.findAll();
+        return this.formateurRepo.findAll();
     }
 
     @Override
@@ -82,7 +83,7 @@ public class ServiceFormateurImpl extends AbstractService implements ServiceForm
 
     @Override
     public boolean exist(Long id) {
-        return super.formateurRepo.existsById(id);
+        return this.formateurRepo.existsById(id);
     }
 
 

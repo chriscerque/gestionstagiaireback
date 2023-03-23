@@ -1,7 +1,10 @@
 package net.ent.etrs.gestionstagiaire.model.services.impl;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import net.ent.etrs.gestionstagiaire.model.entities.Stage;
+import net.ent.etrs.gestionstagiaire.model.repo.StageRepo;
 import net.ent.etrs.gestionstagiaire.model.services.ServiceStage;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +13,10 @@ import java.util.Optional;
 
 @Service
 @CommonsLog(topic = "SOUT")
-public class ServiceStageImpl extends AbstractService implements ServiceStage {
-
-
-//    protected FacadeStageImpl(StageRepo stageRepo, StagiaireRepo stagiaireRepo, FormateurRepo formateurRepo, EvaluationRepo evaluationRepo, IngenierieFormationRepo ingenierieFormationRepo, MatiereRepo matiereRepo, NoteRepo noteRepo, UniteValeurRepo uniteValeurRepo) {
-//        super(stageRepo, stagiaireRepo, formateurRepo, evaluationRepo, ingenierieFormationRepo, matiereRepo, noteRepo, uniteValeurRepo);
-//    }
+@RequiredArgsConstructor
+public class ServiceStageImpl implements ServiceStage {
+    @NonNull
+    private StageRepo stageRepo;
 
     @Override
     public Optional<Stage> save(Stage stage) {
@@ -56,11 +57,11 @@ public class ServiceStageImpl extends AbstractService implements ServiceStage {
 
     @Override
     public boolean exist(Long id) {
-        return super.stageRepo.existsById(id);
+        return this.stageRepo.existsById(id);
     }
 
     @Override
     public Long count() {
-        return super.stageRepo.count();
+        return this.stageRepo.count();
     }
 }
